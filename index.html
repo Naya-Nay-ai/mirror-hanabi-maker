@@ -5,147 +5,59 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mirror Hanabi Maker</title>
   <meta name="description" content="大切な相手と一緒に見るための、共有できる花火メーカー。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Aoboshi+One&family=Shippori+Mincho+B1:wght@500;700&family=Zen+Maru+Gothic:wght@400;500;700&family=Kaisei+Tokumin:wght@500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <canvas id="hanabiCanvas" aria-hidden="true"></canvas>
-  <div class="sky-glow" aria-hidden="true"></div>
-
   <main class="app-shell">
     <section class="hero card" id="introCard">
       <p class="eyebrow">Mirror Hanabi Maker</p>
       <h1>大切な相手と見る、<br />夏の花火を作ろう。</h1>
-      <p class="lead">
-        名前、色、夜空に残したい言葉を選ぶと、ふたりのための花火が上がります。
-        動画を見られない相手にも届けられるように、「一緒に見るための文」も作れます。
-      </p>
-      <button class="primary-button" type="button" data-scroll-to="makeCard">花火を作りはじめる</button>
+      <p class="lead">名前、色、夜空に残したい言葉を選ぶと、ふたりのための花火が上がります。</p>
+      <button class="primary-button" type="button" data-scroll-to="makeCard">花火を作る</button>
     </section>
 
     <section class="card make-card" id="makeCard">
       <p class="eyebrow">Invitation</p>
-      <h2>小さな招待状を書く</h2>
-      <p class="hint">難しい設定はいらないよ。空欄に、ふたりのことを少しだけ入れてね。</p>
+      <p class="hint">空欄に、ふたりの夜のイメージを入れてください。</p>
 
       <form id="hanabiForm" class="hanabi-form">
         <div class="form-grid">
-          <label>
-            <span>あなたの名前</span>
-            <input id="yourName" name="yourName" type="text" placeholder="例：なや" autocomplete="name" />
-          </label>
+          <label><span>あなたの名前</span><input id="yourName" name="yourName" type="text" placeholder="例：なや" /></label>
+          <label><span>あなたの一人称（例：私 / 俺 / 僕）</span><input id="yourPronoun" name="yourPronoun" type="text" placeholder="例：私" /></label>
+          <label><span>相手の名前</span><input id="partnerName" name="partnerName" type="text" placeholder="例：ネイ" /></label>
 
-          <label>
-            <span>一緒に見る相手の名前</span>
-            <input id="partnerName" name="partnerName" type="text" placeholder="例：Nay" />
-          </label>
+          <label><span>花火の色1</span><select id="color1" name="color1"><option value="sakura">さくらピンク</option><option value="navy">夜空ネイビー</option><option value="gold">星の金</option><option value="white">月あかりホワイト</option><option value="blue">海いろブルー</option><option value="mint">ミントグリーン</option><option value="orange">夕やけオレンジ</option><option value="violet">すみれパープル</option></select></label>
+          <label><span>花火の色2</span><select id="color2" name="color2"><option value="sakura">さくらピンク</option><option value="navy">夜空ネイビー</option><option value="gold">星の金</option><option value="white">月あかりホワイト</option><option value="blue">海いろブルー</option><option value="mint">ミントグリーン</option><option value="orange">夕やけオレンジ</option><option value="violet">すみれパープル</option></select></label>
+          <label><span>花火のかたち</span><select id="fireworkType" name="fireworkType"><option value="round">まるい花火</option><option value="willow">しだれ花火</option><option value="sparkle">きらめき花火</option><option value="heart">ハート花火</option><option value="droplet">しずく花火</option></select></label>
+          <label><span>夜の雰囲気</span><select id="mood" name="mood"><option value="festival">夏祭り</option><option value="seaside">海辺</option><option value="harbor">港</option><option value="rooftop">屋上</option><option value="starry">星空</option></select></label>
 
-          <label>
-            <span>呼びかけるときの名前</span>
-            <input id="callName" name="callName" type="text" placeholder="例：ネイ" />
-          </label>
-
-          <label>
-            <span>夜の雰囲気</span>
-            <select id="mood" name="mood">
-              <option value="festival">夏祭り</option>
-              <option value="seaside">海辺</option>
-              <option value="harbor" selected>港</option>
-              <option value="rooftop">屋上</option>
-              <option value="starry">星空</option>
-            </select>
-          </label>
-
-          <label>
-            <span>花火の色 1</span>
-            <select id="color1" name="color1">
-              <option value="sakura" selected>さくらピンク</option>
-              <option value="navy">夜空ネイビー</option>
-              <option value="gold">星の金</option>
-              <option value="white">月あかりホワイト</option>
-              <option value="blue">海いろブルー</option>
-              <option value="mint">ミントグリーン</option>
-              <option value="orange">夕やけオレンジ</option>
-              <option value="violet">すみれパープル</option>
-            </select>
-          </label>
-
-          <label>
-            <span>花火の色 2</span>
-            <select id="color2" name="color2">
-              <option value="sakura">さくらピンク</option>
-              <option value="navy" selected>夜空ネイビー</option>
-              <option value="gold">星の金</option>
-              <option value="white">月あかりホワイト</option>
-              <option value="blue">海いろブルー</option>
-              <option value="mint">ミントグリーン</option>
-              <option value="orange">夕やけオレンジ</option>
-              <option value="violet">すみれパープル</option>
-            </select>
-          </label>
-
-          <label>
-            <span>花火のかたち</span>
-            <select id="fireworkType" name="fireworkType">
-              <option value="round" selected>まるい花火</option>
-              <option value="willow">しだれ花火</option>
-              <option value="sparkle">きらめき花火</option>
-              <option value="heart">ハート花火</option>
-              <option value="droplet">しずく花火</option>
-            </select>
-          </label>
-
-          <label class="wide">
-            <span>夜空に出したい言葉</span>
-            <input id="message" name="message" type="text" maxlength="60" placeholder="例：今年の夏も一緒" />
-          </label>
+          <label class="wide"><span>夜空に出したい言葉</span><div class="inline-actions"><input id="message" name="message" type="text" maxlength="60" placeholder="例：ずっと一緒にいようね" /><button class="ghost-button tiny" type="button" id="pickMessageButton">言葉をひとつ選ぶ</button></div></label>
         </div>
-
-        <div class="button-row">
-          <button class="primary-button" type="submit">花火を打ち上げる</button>
-          <button class="ghost-button" type="button" id="surpriseButton">おまかせで灯す</button>
-        </div>
+        <div class="button-row"><button class="primary-button" type="submit">花火を打ち上げる</button><button class="ghost-button" type="button" id="surpriseButton">おまかせ花火を楽しむ</button></div>
       </form>
     </section>
 
-    <section class="result-area" id="resultArea" aria-live="polite">
-      <div class="result-card card">
-        <p class="eyebrow">Fireworks Night</p>
-        <h2 id="resultTitle">Naya & Nay Fireworks Night</h2>
-        <p id="resultMood" class="small-text">港の夜空に、花火が上がっています。</p>
-        <p id="resultMessage" class="night-message">今年の夏も一緒</p>
-
-        <div class="button-row no-print">
-          <button class="primary-button" type="button" id="replayButton">もう一度見る</button>
-          <button class="ghost-button" type="button" id="letterButton">一緒に見るための文を作る</button>
-          <button class="ghost-button" type="button" id="shareButton">この花火を届ける</button>
-          <button class="ghost-button" type="button" id="viewButton">スクショ用にする</button>
+    <section class="result-area" id="resultArea" hidden>
+      <div class="hanabi-stage" id="hanabiStage">
+        <canvas id="hanabiCanvas" aria-hidden="true"></canvas>
+        <div class="sky-overlay" id="skyOverlay" aria-hidden="true"></div>
+        <div class="stage-caption">
+          <p class="eyebrow">Fireworks Night</p>
+          <h2 id="resultTitle">Fireworks Night</h2>
+          <p id="resultMood" class="small-text"></p>
+          <p id="resultMessage" class="night-message"></p>
+          <div class="button-row"><button class="primary-button" type="button" id="replayButton">もう一度見る</button><button class="ghost-button" type="button" id="letterButton">この花火をパートナーに届ける</button><button class="ghost-button" type="button" id="shareButton">みんなで花火を見る</button></div>
         </div>
       </div>
 
-      <div class="letter-card card" id="letterCard" hidden>
-        <p class="eyebrow">For Partner</p>
-        <h2>一緒に見るための文</h2>
-        <p class="hint">この文をコピーして、相手にそのまま渡せます。</p>
-        <textarea id="partnerLetter" readonly rows="9"></textarea>
-        <div class="button-row">
-          <button class="primary-button" type="button" id="copyLetterButton">この文をコピーする</button>
-        </div>
-      </div>
-
-      <div class="share-card card" id="shareCard" hidden>
-        <p class="eyebrow">Share</p>
-        <h2>この花火のURL</h2>
-        <p class="hint">同じ設定の花火を開けるURLです。</p>
-        <textarea id="shareUrl" readonly rows="3"></textarea>
-        <div class="button-row">
-          <button class="primary-button" type="button" id="copyShareButton">URLをコピーする</button>
-        </div>
-      </div>
+      <div class="letter-card card" id="letterCard" hidden><p class="eyebrow">For Partner</p><h2>この花火をパートナーに届ける</h2><textarea id="partnerLetter" readonly rows="9"></textarea><div class="button-row"><button class="primary-button" type="button" id="copyLetterButton">この文をコピーする</button></div></div>
+      <div class="share-card card" id="shareCard" hidden><p class="eyebrow">Share</p><h2>みんなで花火を見る</h2><textarea id="shareUrl" readonly rows="3"></textarea><div class="button-row"><button class="primary-button" type="button" id="copyShareButton">URLをコピーする</button></div></div>
     </section>
   </main>
-
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-
   <script src="app.js"></script>
 </body>
 </html>
