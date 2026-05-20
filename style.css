@@ -1,11 +1,10 @@
 :root { color-scheme: dark; --text: #f7fbff; --muted: #d4e0ee; --line: rgba(255,255,255,.2); --card: rgba(9,16,30,.72); --accent:#ffd977; }
 *{box-sizing:border-box} html{scroll-behavior:smooth}
 body{margin:0;min-height:100vh;color:var(--text);font-family:"Zen Maru Gothic",sans-serif;background:linear-gradient(180deg,#0a1228 0%,#060d1e 60%,#050a17 100%);position:relative;overflow-x:hidden}
-.global-night-sky,.global-night-sky::before,.global-night-sky::after{position:fixed;inset:0;pointer-events:none;content:""}
-.global-night-sky{z-index:0;background:radial-gradient(circle at 15% 10%,rgba(255,196,140,.13),transparent 30%),radial-gradient(circle at 80% 2%,rgba(130,186,255,.15),transparent 26%),linear-gradient(180deg,#0b1630 0%,#070f24 40%,#060d1e 100%)}
-.global-night-sky::before{background-image:radial-gradient(circle,rgba(255,255,255,.7) 0 1px,transparent 1.6px),radial-gradient(circle,rgba(171,212,255,.45) 0 1.2px,transparent 1.8px),radial-gradient(circle,rgba(255,233,181,.5) 0 1px,transparent 1.6px);background-size:180px 180px,240px 240px,300px 300px;background-position:20px 30px,120px 80px,40px 150px;opacity:.33;animation:twinkle 7.5s ease-in-out infinite alternate}
-.global-night-sky::after{background-image:radial-gradient(circle,rgba(255,255,255,.22) 0 1px,transparent 1.7px);background-size:150px 150px;opacity:.2;animation:twinkle 11s ease-in-out infinite alternate-reverse}
-@keyframes twinkle{0%{opacity:.18}100%{opacity:.38}}
+.global-night-sky{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(circle at 15% 10%,rgba(255,196,140,.13),transparent 30%),radial-gradient(circle at 80% 2%,rgba(130,186,255,.15),transparent 26%),linear-gradient(180deg,#0b1630 0%,#070f24 40%,#060d1e 100%)}
+.twinkle-layer{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.twinkle-star{position:absolute;color:#ffe8a8;font-size:var(--star-size,14px);line-height:1;opacity:.28;text-shadow:0 0 7px rgba(255,232,168,.95),0 0 16px rgba(231,220,255,.58),0 0 30px rgba(160,180,255,.42);animation:starBlink var(--star-duration,2.8s) ease-in-out infinite;animation-delay:var(--star-delay,0s);transform:scale(.9) rotate(var(--star-rotate,0deg))}
+@keyframes starBlink{0%,100%{opacity:.16;transform:scale(.72) rotate(var(--star-rotate,0deg))}50%{opacity:.82;transform:scale(1.08) rotate(var(--star-rotate,0deg))}}
 
 .app-shell{width:min(980px,calc(100% - 28px));margin:0 auto;padding:22px 0 70px;display:flex;flex-direction:column;gap:18px;position:relative;z-index:1}
 .card{border:1px solid var(--line);border-radius:24px;background:var(--card);box-shadow:0 24px 58px rgba(0,0,0,.35);backdrop-filter:blur(5px)}
