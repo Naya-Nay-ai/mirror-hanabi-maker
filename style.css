@@ -24,24 +24,27 @@ body{
 .app-shell{width:min(980px,calc(100% - 28px));margin:0 auto;padding:30px 0 70px;display:flex;flex-direction:column;gap:20px}
 .card{border:1px solid var(--line);border-radius:24px;background:var(--card);box-shadow:0 24px 58px rgba(0,0,0,.35);backdrop-filter:blur(5px)}
 .hero,.make-card,.letter-card,.share-card{padding:clamp(20px,4vw,38px)}
-.hero{position:relative;overflow:hidden;min-height:44vh;display:flex;flex-direction:column;justify-content:center;background:
-  radial-gradient(circle at 18% 18%,rgba(255,255,255,.34) 0 1.2px,transparent 2px),
-  radial-gradient(circle at 72% 22%,rgba(255,255,255,.28) 0 1px,transparent 2px),
-  radial-gradient(circle at 86% 54%,rgba(255,255,255,.22) 0 1px,transparent 2px),
-  radial-gradient(circle at 38% 70%,rgba(255,255,255,.18) 0 1px,transparent 2px),
+.hero{position:relative;overflow:hidden;min-height:38vh;display:flex;flex-direction:column;justify-content:center;background:
   radial-gradient(circle at 50% 8%,rgba(255,217,119,.12),transparent 28%),
   rgba(9,16,30,.78)}
-.hero::before{content:"";position:absolute;inset:0;pointer-events:none;background:
-  radial-gradient(circle at 12% 42%,rgba(255,255,255,.55) 0 1px,transparent 2px),
-  radial-gradient(circle at 28% 30%,rgba(255,255,255,.38) 0 1px,transparent 2px),
-  radial-gradient(circle at 63% 63%,rgba(255,255,255,.4) 0 1px,transparent 2px),
-  radial-gradient(circle at 92% 26%,rgba(255,255,255,.44) 0 1px,transparent 2px);opacity:.85;filter:drop-shadow(0 0 5px rgba(255,255,255,.28))}
-.hero>*{position:relative;z-index:1}
+.hero-stars{position:absolute;inset:0;pointer-events:none;z-index:0;color:rgba(255,255,255,.88);font-size:15px;text-shadow:
+  115px 32px 0 rgba(255,255,255,.72),
+  310px 76px 0 rgba(255,255,255,.42),
+  520px 42px 0 rgba(255,255,255,.56),
+  705px 96px 0 rgba(255,255,255,.42),
+  830px 54px 0 rgba(255,255,255,.58),
+  260px 170px 0 rgba(255,255,255,.52),
+  610px 185px 0 rgba(255,255,255,.44),
+  910px 160px 0 rgba(255,255,255,.48)}
+.hero-stars::before{content:"✦";position:absolute;left:8%;top:18%;filter:drop-shadow(0 0 8px rgba(255,255,255,.55))}
+.hero-stars::after{content:"✧";position:absolute;right:12%;top:28%;font-size:18px;color:rgba(255,255,255,.7);filter:drop-shadow(0 0 10px rgba(255,255,255,.45))}
+.hero>*:not(.hero-stars){position:relative;z-index:1}
 
 .eyebrow{margin:0 0 10px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-size:.78rem;font-family:"Cinzel","Zen Maru Gothic",serif;font-weight:600}
 h1,h2{margin:0;font-family:"Kaisei Tokumin",serif}
-h1{font-size:clamp(1.64rem,3.9vw,2.84rem);line-height:1.13;letter-spacing:.01em;white-space:nowrap}
-.mobile-break{display:none}
+h1{font-size:clamp(1.56rem,3.35vw,2.56rem);line-height:1.13;letter-spacing:.01em;white-space:nowrap}
+.desktop-title{display:inline}
+.mobile-title{display:none}
 h2{font-size:clamp(1.2rem,3.2vw,1.8rem);line-height:1.2}
 .lead,.hint,.small-text{color:var(--muted);line-height:1.8}
 
@@ -81,9 +84,10 @@ button:hover::after{transform:rotate(25deg) translateX(430%)}
 
 @media (max-width:760px){
   .app-shell{width:min(100% - 18px,980px);padding-top:16px}
-  .hero{min-height:46vh}
+  .hero{min-height:42vh}
   h1{font-size:clamp(1.66rem,8vw,2.2rem);white-space:normal}
-  .mobile-break{display:block}
+  .desktop-title{display:none}
+  .mobile-title{display:inline}
   .form-grid{grid-template-columns:1fr}
   .inline-actions{flex-direction:column;align-items:stretch}
   .button-row{flex-direction:column;align-items:center}
