@@ -18,23 +18,29 @@ body{
   background:
     radial-gradient(circle at 12% 10%,rgba(255,170,100,.12),transparent 32%),
     radial-gradient(circle at 89% 6%,rgba(110,175,255,.14),transparent 29%),
-    radial-gradient(2px 2px at 12% 18%,rgba(255,255,255,.45),transparent 68%),
-    radial-gradient(2px 2px at 24% 54%,rgba(255,255,255,.28),transparent 68%),
-    radial-gradient(1.5px 1.5px at 46% 24%,rgba(255,255,255,.38),transparent 72%),
-    radial-gradient(1px 1px at 67% 42%,rgba(255,255,255,.3),transparent 75%),
-    radial-gradient(2px 2px at 84% 32%,rgba(255,255,255,.34),transparent 70%),
-    radial-gradient(1.5px 1.5px at 76% 67%,rgba(255,255,255,.24),transparent 75%),
     linear-gradient(180deg,#0b1630 0%,#091126 45%,#040913 100%);
 }
 
 .app-shell{width:min(980px,calc(100% - 28px));margin:0 auto;padding:30px 0 70px;display:flex;flex-direction:column;gap:20px}
 .card{border:1px solid var(--line);border-radius:24px;background:var(--card);box-shadow:0 24px 58px rgba(0,0,0,.35);backdrop-filter:blur(5px)}
 .hero,.make-card,.letter-card,.share-card{padding:clamp(20px,4vw,38px)}
-.hero{min-height:54vh;display:flex;flex-direction:column;justify-content:center}
+.hero{position:relative;overflow:hidden;min-height:54vh;display:flex;flex-direction:column;justify-content:center;background:
+  radial-gradient(circle at 18% 18%,rgba(255,255,255,.34) 0 1.2px,transparent 2px),
+  radial-gradient(circle at 72% 22%,rgba(255,255,255,.28) 0 1px,transparent 2px),
+  radial-gradient(circle at 86% 54%,rgba(255,255,255,.22) 0 1px,transparent 2px),
+  radial-gradient(circle at 38% 70%,rgba(255,255,255,.18) 0 1px,transparent 2px),
+  radial-gradient(circle at 50% 8%,rgba(255,217,119,.12),transparent 28%),
+  rgba(9,16,30,.78)}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;background:
+  radial-gradient(circle at 12% 42%,rgba(255,255,255,.55) 0 1px,transparent 2px),
+  radial-gradient(circle at 28% 30%,rgba(255,255,255,.38) 0 1px,transparent 2px),
+  radial-gradient(circle at 63% 63%,rgba(255,255,255,.4) 0 1px,transparent 2px),
+  radial-gradient(circle at 92% 26%,rgba(255,255,255,.44) 0 1px,transparent 2px);opacity:.85;filter:drop-shadow(0 0 5px rgba(255,255,255,.28))}
+.hero>*{position:relative;z-index:1}
 
 .eyebrow{margin:0 0 10px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-size:.78rem;font-family:"Cinzel","Zen Maru Gothic",serif;font-weight:600}
 h1,h2{margin:0;font-family:"Kaisei Tokumin",serif}
-h1{font-size:clamp(1.84rem,5.4vw,3.52rem);line-height:1.12;letter-spacing:.01em}
+h1{font-size:clamp(1.68rem,4.8vw,3.08rem);line-height:1.13;letter-spacing:.01em}
 h2{font-size:clamp(1.2rem,3.2vw,1.8rem);line-height:1.2}
 .lead,.hint,.small-text{color:var(--muted);line-height:1.8}
 
@@ -49,7 +55,10 @@ input::placeholder{color:rgba(255,255,255,.5)}
 
 .button-row{margin-top:18px;display:flex;flex-wrap:wrap;gap:10px}
 button{border:0;border-radius:999px;padding:11px 16px;font:inherit;font-family:"Zen Maru Gothic","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;font-weight:700;cursor:pointer}
-.hero .primary-button{align-self:center;width:auto;min-width:170px;max-width:260px;padding:10px 22px;font-size:.96rem;border:1px solid rgba(255,255,255,.28);box-shadow:0 8px 24px rgba(255,187,127,.28),0 0 14px rgba(255,221,140,.42);background:linear-gradient(135deg,rgba(255,223,146,.94),rgba(255,181,151,.92) 55%,rgba(188,224,255,.9));backdrop-filter:blur(3px)}
+.hero .primary-button{position:relative;overflow:hidden;align-self:center;width:auto;min-width:170px;max-width:260px;padding:10px 22px;font-size:.96rem;border:1px solid rgba(255,255,255,.28);box-shadow:0 8px 24px rgba(255,187,127,.28),0 0 14px rgba(255,221,140,.42);background:linear-gradient(135deg,rgba(255,223,146,.94),rgba(255,181,151,.92) 55%,rgba(188,224,255,.9));backdrop-filter:blur(3px);transition:transform .18s ease,box-shadow .18s ease}
+.hero .primary-button::after{content:"";position:absolute;top:-60%;left:-45%;width:38%;height:220%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.78),transparent);transform:rotate(25deg) translateX(-120%);transition:transform .55s ease;pointer-events:none}
+.hero .primary-button:hover{transform:translateY(-1px);box-shadow:0 10px 28px rgba(255,187,127,.34),0 0 22px rgba(255,221,140,.5)}
+.hero .primary-button:hover::after{transform:rotate(25deg) translateX(420%)}
 .primary-button{color:#22140f;background:linear-gradient(135deg,#ffd56e,#ffaf7f 52%,#b5deff)}
 .ghost-button{color:var(--text);background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2)}
 .tiny{padding:10px 14px;font-size:.88rem}
