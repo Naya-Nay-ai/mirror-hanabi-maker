@@ -155,6 +155,7 @@ function resizeCanvas() {
   canvas.style.width = `${width}px`;
   canvas.style.height = `${height}px`;
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, width, height);
 }
 
 window.addEventListener('resize', () => {
@@ -174,10 +175,12 @@ function drawMoodOverlay() {
   const mood = MOOD_MAP[activeSettings.mood] || MOOD_MAP.festival;
   const [a, b, c] = mood.theme;
   skyOverlay.style.background = `
-    radial-gradient(circle at 22% 18%, rgba(255,255,255,0.18) 0 1px, transparent 2px),
-    radial-gradient(circle at 72% 12%, rgba(255,255,255,0.12) 0 1px, transparent 2px),
-    linear-gradient(180deg, ${a} 0%, ${b} 50%, ${c}33 100%),
-    linear-gradient(0deg, rgba(255,255,255,0.16) 0 6%, transparent 14%)`;
+    radial-gradient(circle at 18% 18%, rgba(255,255,255,0.72) 0 1.2px, transparent 2.4px),
+    radial-gradient(circle at 38% 32%, rgba(255,255,255,0.42) 0 1px, transparent 2px),
+    radial-gradient(circle at 72% 12%, rgba(255,255,255,0.58) 0 1.2px, transparent 2.4px),
+    radial-gradient(circle at 84% 48%, rgba(255,255,255,0.34) 0 1px, transparent 2px),
+    linear-gradient(180deg, ${a} 0%, ${b} 52%, ${c} 100%),
+    linear-gradient(0deg, rgba(255,255,255,0.2) 0 6%, transparent 18%)`;
 }
 
 function resetShow() {
@@ -186,6 +189,7 @@ function resetShow() {
   launchCount = 0;
   lastLaunch = 0;
   rng = mulberry32(hashString(JSON.stringify(activeSettings)));
+  if (width && height) ctx.clearRect(0, 0, width, height);
 }
 
 function startAnimation() {
@@ -201,9 +205,10 @@ function tick(time) {
     return;
   }
 
-  ctx.globalCompositeOperation = 'source-over';
-  ctx.fillStyle = 'rgba(3,7,18,0.2)';
+  ctx.globalCompositeOperation = 'destination-out';
+  ctx.fillStyle = 'rgba(0,0,0,0.18)';
   ctx.fillRect(0, 0, width, height);
+  ctx.globalCompositeOperation = 'lighter';
 
   if (time - lastLaunch > 850 && launchCount < 10) {
     launchRocket();
@@ -238,6 +243,7 @@ function updateRockets() {
 }
 
 function updateParticles() {
+  ctx.globalCompositeOperation = 'lighter';
   particles = particles.filter((particle) => {
     particle.x += particle.vx;
     particle.y += particle.vy;
