@@ -102,6 +102,10 @@ function drawMoodOverlay(){
     }
   };
 
+  if (hanabiStage) {
+    hanabiStage.dataset.scene = activeSettings.mood;
+  }
+
   const layers = layerOverrides[activeSettings.mood] || layerOverrides.festival;
 
   if (locationMid) {
