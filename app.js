@@ -65,11 +65,68 @@ function resizeCanvas(){if(!hanabiStage||resultArea.hidden) return;const rect=ha
 window.addEventListener('resize',resizeCanvas);
 
 function updateResultText(){const mood=MOOD_MAP[activeSettings.mood]||MOOD_MAP.festival;const type=TYPE_MAP[activeSettings.fireworkType]||TYPE_MAP.round;resultTitle.textContent=`${activeSettings.yourName}と${activeSettings.partnerName}の花火`;resultMood.textContent=`${mood.text} ${type.label}が広がっています。`;resultMessage.textContent=activeSettings.message}
-function drawMoodOverlay(){const mood=MOOD_MAP[activeSettings.mood]||MOOD_MAP.festival;skyOverlay.style.setProperty('--sky-gradient', mood.sky);skyOverlay.style.setProperty('--location-lights', mood.lights);locationMid.style.setProperty('--mid-shape', mood.mid);locationFront.style.setProperty('--front-shape', mood.front);}
+function drawMoodOverlay(){
+  const mood = MOOD_MAP[activeSettings.mood] || MOOD_MAP.festival;
+
+  skyOverlay.style.setProperty('--sky-gradient', mood.sky || MOOD_MAP.festival.sky);
+  skyOverlay.style.setProperty('--location-lights', mood.lights || MOOD_MAP.festival.lights);
+
+  if (locationMid) {
+    locationMid.style.setProperty('--mid-shape', mood.mid || MOOD_MAP.festival.mid);
+  }
+
+  if (locationFront) {
+    locationFront.style.setProperty('--front-shape', mood.front || MOOD_MAP.festival.front);
+  }
+
+  const layerOverrides = {
+    festival: {
+      midBg: 'linear-gradient(0deg, rgba(248,177,78,0.16) 0 26%, transparent 44%)',
+      frontBg: 'linear-gradient(0deg, rgba(73,27,10,0.38) 0 12%, transparent 24%)'
+    },
+    seaside: {
+      midBg: 'linear-gradient(0deg, rgba(131,223,255,0.12) 0 28%, transparent 46%)',
+      frontBg: 'linear-gradient(0deg, rgba(8,47,79,0.36) 0 14%, transparent 26%)'
+    },
+    harbor: {
+      midBg: 'linear-gradient(0deg, rgba(241,210,122,0.14) 0 24%, transparent 42%)',
+      frontBg: 'linear-gradient(0deg, rgba(11,24,48,0.40) 0 12%, transparent 24%)'
+    },
+    rooftop: {
+      midBg: 'linear-gradient(0deg, rgba(169,182,207,0.12) 0 22%, transparent 40%)',
+      frontBg: 'linear-gradient(0deg, rgba(24,31,52,0.44) 0 10%, transparent 22%)'
+    },
+    starry: {
+      midBg: 'linear-gradient(0deg, rgba(207,216,255,0.10) 0 18%, transparent 36%)',
+      frontBg: 'linear-gradient(0deg, rgba(10,14,34,0.42) 0 10%, transparent 22%)'
+    }
+  };
+
+  const layers = layerOverrides[activeSettings.mood] || layerOverrides.festival;
+
+  if (locationMid) {
+    locationMid.style.background = layers.midBg;
+  }
+
+  if (locationFront) {
+    locationFront.style.background = layers.frontBg;
+  }
+}
 function resetShow(){rockets=[];particles=[];launchCount=0;lastLaunch=0;rng=mulberry32(hashString(JSON.stringify(activeSettings)))}
 function startAnimation(){if(!animationStarted){animationStarted=true;requestAnimationFrame(tick)}}
 function tick(time){if(!width||!height||resultArea.hidden){requestAnimationFrame(tick);return;}ctx.globalCompositeOperation='destination-out';ctx.fillStyle='rgba(0,0,0,0.18)';ctx.fillRect(0,0,width,height);ctx.globalCompositeOperation='lighter';if(time-lastLaunch>850&&launchCount<10){launchRocket();launchCount++;lastLaunch=time}updateRockets();updateParticles();requestAnimationFrame(tick)}
-function launchRocket(){const x=width*(0.2+rng()*0.6);const targetY=height*(0.16+rng()*0.35);rockets.push({x,y:height+10,vx:(rng()-0.5)*1.2,vy:-7.2-rng()*2.2,targetY,color:chooseColor()})}
+function launchRocket(){
+  const x=width*(0.2+rng()*0.6);
+  const targetY=height*(0.10+rng()*0.26);
+  rockets.push({
+    x,
+    y:height+10,
+    vx:(rng()-0.5)*1.2,
+    vy:-7.2-rng()*2.2,
+    targetY,
+    color:chooseColor()
+  });
+}
 function updateRockets(){ctx.globalCompositeOperation='lighter';rockets=rockets.filter((r)=>{r.x+=r.vx;r.y+=r.vy;r.vy+=0.034;drawGlow(r.x,r.y,2.8,r.color,0.95);if(r.y<=r.targetY||r.vy>=-0.6){explode(r.x,r.y);return false}return true})}
 function updateParticles(){particles=particles.filter((p)=>{p.x+=p.vx;p.y+=p.vy;p.vx*=p.drag;p.vy=p.vy*p.drag+p.gravity;p.life-=p.decay;if(p.life<=0)return false;drawGlow(p.x,p.y,p.size,p.color,p.life);return true})}
 function explode(x,y){const colors=[COLOR_MAP[activeSettings.color1].hex,COLOR_MAP[activeSettings.color2].hex,'#fff7e8'];const type=activeSettings.fireworkType;if(type==='heart')return explodeHeart(x,y,colors);if(type==='willow')return explodeWillow(x,y,colors);if(type==='sparkle')return explodeSparkle(x,y,colors);if(type==='droplet')return explodeDroplet(x,y,colors);explodeRound(x,y,colors,90)}
