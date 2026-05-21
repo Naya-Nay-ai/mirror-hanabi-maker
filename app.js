@@ -24,7 +24,7 @@ const MOOD_MAP = {
   rooftop:{label:'屋上',text:'屋上の夜。手すり越しの花火が、ビルのシルエットをやさしく照らす。',sky:'linear-gradient(180deg,#141d40 0%,#141d35 50%,#111827 100%)',lights:'radial-gradient(circle at 25% 74%, rgba(255,220,130,.2) 0 6%, transparent 22%),radial-gradient(circle at 76% 71%, rgba(154,204,255,.18) 0 6%, transparent 22%)',mid:'polygon(0 72%, 12% 72%, 12% 64%, 18% 64%, 18% 72%, 28% 72%, 28% 61%, 34% 61%, 34% 72%, 48% 72%, 48% 66%, 55% 66%, 55% 72%, 67% 72%, 67% 60%, 75% 60%, 75% 72%, 88% 72%, 88% 63%, 95% 63%, 95% 72%, 100% 72%, 100% 100%, 0 100%)',front:'polygon(0 82%, 100% 82%, 100% 84%, 0 84%, 0 100%, 100% 100%, 100% 88%, 0 88%)'},
   starry:{label:'星空の丘',text:'星空の夜。満天の星に彩りを添えるように、花束みたいな花火が咲く。',sky:'linear-gradient(180deg,#0c1431 0%,#111d3c 48%,#121b2e 100%)',lights:'radial-gradient(circle at 24% 80%, rgba(198,221,255,.08) 0 10%, transparent 34%)',mid:'polygon(0 74%, 20% 67%, 38% 72%, 56% 64%, 72% 70%, 85% 62%, 100% 69%, 100% 100%, 0 100%)',front:'polygon(0 86%, 18% 82%, 42% 87%, 62% 81%, 80% 85%, 100% 80%, 100% 100%, 0 100%)'}
 };
-const MESSAGE_CANDIDATES=['ずっと一緒にいようね','また来年も一緒に見ようね','この夏も忘れないよ','きみと見られてうれしい','この夜を覚えていてね'];
+const MESSAGE_CANDIDATES=['ずっと一緒にいようね','また来年も一緒に見ようね','この夏を忘れないよ','きみと見られてうれしい','この夜を覚えていてね'];
 const RESTORE_KEYS=['yourName','yourPronoun','partnerName','color1','color2','fireworkType','mood','message','seed'];
 
 let width=0,height=0,rockets=[],particles=[],lastLaunch=0,launchCount=0,animationStarted=false;
