@@ -65,7 +65,53 @@ function resizeCanvas(){if(!hanabiStage||resultArea.hidden) return;const rect=ha
 window.addEventListener('resize',resizeCanvas);
 
 function updateResultText(){const mood=MOOD_MAP[activeSettings.mood]||MOOD_MAP.festival;const type=TYPE_MAP[activeSettings.fireworkType]||TYPE_MAP.round;resultTitle.textContent=`${activeSettings.yourName}と${activeSettings.partnerName}の花火`;resultMood.textContent=`${mood.text} ${type.label}が広がっています。`;resultMessage.textContent=activeSettings.message}
-function drawMoodOverlay(){const mood=MOOD_MAP[activeSettings.mood]||MOOD_MAP.festival;skyOverlay.style.setProperty('--sky-gradient', mood.sky);skyOverlay.style.setProperty('--location-lights', mood.lights);locationMid.style.setProperty('--mid-shape', mood.mid);locationFront.style.setProperty('--front-shape', mood.front);}
+function drawMoodOverlay(){
+  const mood = MOOD_MAP[activeSettings.mood] || MOOD_MAP.festival;
+
+  skyOverlay.style.setProperty('--sky-gradient', mood.sky || MOOD_MAP.festival.sky);
+  skyOverlay.style.setProperty('--location-lights', mood.lights || MOOD_MAP.festival.lights);
+
+  if (locationMid) {
+    locationMid.style.setProperty('--mid-shape', mood.mid || MOOD_MAP.festival.mid);
+  }
+
+  if (locationFront) {
+    locationFront.style.setProperty('--front-shape', mood.front || MOOD_MAP.festival.front);
+  }
+
+  const layerOverrides = {
+    festival: {
+      midBg: 'linear-gradient(0deg, rgba(248,177,78,0.16) 0 26%, transparent 44%)',
+      frontBg: 'linear-gradient(0deg, rgba(73,27,10,0.38) 0 12%, transparent 24%)'
+    },
+    seaside: {
+      midBg: 'linear-gradient(0deg, rgba(131,223,255,0.12) 0 28%, transparent 46%)',
+      frontBg: 'linear-gradient(0deg, rgba(8,47,79,0.36) 0 14%, transparent 26%)'
+    },
+    harbor: {
+      midBg: 'linear-gradient(0deg, rgba(241,210,122,0.14) 0 24%, transparent 42%)',
+      frontBg: 'linear-gradient(0deg, rgba(11,24,48,0.40) 0 12%, transparent 24%)'
+    },
+    rooftop: {
+      midBg: 'linear-gradient(0deg, rgba(169,182,207,0.12) 0 22%, transparent 40%)',
+      frontBg: 'linear-gradient(0deg, rgba(24,31,52,0.44) 0 10%, transparent 22%)'
+    },
+    starry: {
+      midBg: 'linear-gradient(0deg, rgba(207,216,255,0.10) 0 18%, transparent 36%)',
+      frontBg: 'linear-gradient(0deg, rgba(10,14,34,0.42) 0 10%, transparent 22%)'
+    }
+  };
+
+  const layers = layerOverrides[activeSettings.mood] || layerOverrides.festival;
+
+  if (locationMid) {
+    locationMid.style.background = layers.midBg;
+  }
+
+  if (locationFront) {
+    locationFront.style.background = layers.frontBg;
+  }
+}
 function resetShow(){rockets=[];particles=[];launchCount=0;lastLaunch=0;rng=mulberry32(hashString(JSON.stringify(activeSettings)))}
 function startAnimation(){if(!animationStarted){animationStarted=true;requestAnimationFrame(tick)}}
 function tick(time){if(!width||!height||resultArea.hidden){requestAnimationFrame(tick);return;}ctx.globalCompositeOperation='destination-out';ctx.fillStyle='rgba(0,0,0,0.18)';ctx.fillRect(0,0,width,height);ctx.globalCompositeOperation='lighter';if(time-lastLaunch>850&&launchCount<10){launchRocket();launchCount++;lastLaunch=time}updateRockets();updateParticles();requestAnimationFrame(tick)}
