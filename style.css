@@ -27,6 +27,113 @@ select option{color:#101820} input::placeholder{color:rgba(255,255,255,.5)}
 .result-area{display:grid;gap:16px}
 .hanabi-stage{position:relative;border-radius:26px;overflow:hidden;min-height:min(88vh,850px);border:1px solid rgba(255,255,255,.18);background:#050b18;box-shadow:0 30px 70px rgba(0,0,0,.5)}
 #hanabiCanvas,.sky-overlay,.location-mid,.location-front{position:absolute;inset:0;width:100%;height:100%} #hanabiCanvas{pointer-events:none;z-index:4} .sky-overlay{z-index:1;pointer-events:none;background:var(--sky-gradient),var(--location-lights)} .location-mid{z-index:2;pointer-events:none;background:rgba(24,36,60,.78);clip-path:var(--mid-shape)} .location-front{z-index:3;pointer-events:none;background:rgba(7,10,20,.94);clip-path:var(--front-shape)}
+.hanabi-stage::before,
+.hanabi-stage::after,
+.hanabi-stage .location-mid::before,
+.hanabi-stage .location-mid::after,
+.hanabi-stage .location-front::before,
+.hanabi-stage .location-front::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+}
+
+/* festival */
+.hanabi-stage[data-scene="festival"] .location-mid::before{
+  background:
+    linear-gradient(180deg, transparent 0 60%, rgba(252,149,80,.18) 60% 62%, transparent 62% 100%),
+    linear-gradient(0deg, rgba(255,198,112,.28) 0 18%, rgba(215,108,70,.12) 18% 26%, transparent 40%),
+    radial-gradient(circle at 14% 76%, rgba(255,199,110,.50) 0 2.4%, transparent 5%),
+    radial-gradient(circle at 32% 74%, rgba(247,133,93,.50) 0 2.2%, transparent 5%),
+    radial-gradient(circle at 50% 73%, rgba(255,210,136,.46) 0 2.1%, transparent 5%),
+    radial-gradient(circle at 70% 74%, rgba(248,124,94,.46) 0 2.3%, transparent 5%),
+    radial-gradient(circle at 86% 75%, rgba(255,202,110,.48) 0 2.1%, transparent 5%);
+  mix-blend-mode:screen;
+  opacity:.95;
+}
+.hanabi-stage[data-scene="festival"] .location-front::before{
+  background:
+    linear-gradient(180deg, transparent 0 58%, rgba(35,60,84,.35) 58% 100%),
+    repeating-linear-gradient(90deg, rgba(255,213,130,.28) 0 4px, transparent 4px 18px),
+    linear-gradient(0deg, rgba(34,62,91,.72) 0 26%, rgba(16,27,45,.55) 26% 36%, transparent 52%);
+  opacity:.86;
+}
+
+/* seaside */
+.hanabi-stage[data-scene="seaside"] .location-mid::before{
+  background:
+    linear-gradient(180deg, transparent 0 56%, rgba(188,236,255,.55) 56% 57%, transparent 57% 100%),
+    repeating-linear-gradient(0deg, rgba(196,240,255,.34) 0 2px, transparent 2px 12px),
+    linear-gradient(0deg, rgba(79,171,224,.38) 0 22%, rgba(51,123,182,.26) 22% 34%, transparent 48%);
+  opacity:.92;
+}
+.hanabi-stage[data-scene="seaside"] .location-front::before{
+  background:
+    repeating-linear-gradient(0deg, rgba(216,248,255,.28) 0 2px, transparent 2px 10px),
+    linear-gradient(180deg, transparent 0 62%, rgba(121,205,245,.20) 62% 66%, transparent 66% 100%),
+    linear-gradient(0deg, rgba(18,85,136,.66) 0 22%, rgba(9,53,97,.52) 22% 34%, transparent 48%);
+  opacity:.92;
+}
+
+/* harbor */
+.hanabi-stage[data-scene="harbor"] .location-mid::before{
+  background:
+    linear-gradient(180deg, transparent 0 50%, rgba(207,227,246,.15) 50% 52%, transparent 52% 100%),
+    repeating-linear-gradient(90deg, rgba(255,225,148,.38) 0 5px, transparent 5px 16px),
+    linear-gradient(0deg, rgba(15,36,66,.66) 0 20%, rgba(15,29,52,.54) 20% 34%, transparent 48%);
+  opacity:.92;
+}
+.hanabi-stage[data-scene="harbor"] .location-front::before{
+  background:
+    linear-gradient(180deg, transparent 0 62%, rgba(255,212,123,.24) 62% 68%, transparent 68% 100%),
+    repeating-linear-gradient(90deg, rgba(255,223,139,.28) 0 3px, transparent 3px 20px),
+    linear-gradient(0deg, rgba(8,21,44,.76) 0 24%, rgba(11,33,60,.58) 24% 36%, transparent 50%);
+  opacity:.86;
+}
+
+/* rooftop */
+.hanabi-stage[data-scene="rooftop"] .location-mid::before{
+  background:
+    repeating-linear-gradient(90deg, rgba(246,232,170,.30) 0 4px, transparent 4px 20px),
+    linear-gradient(0deg, rgba(22,34,58,.72) 0 26%, rgba(17,28,49,.56) 26% 38%, transparent 52%);
+  opacity:.9;
+}
+.hanabi-stage[data-scene="rooftop"] .location-front::before{
+  background:
+    linear-gradient(180deg, transparent 0 56%, rgba(142,160,196,.65) 56% 57%, transparent 57% 100%),
+    repeating-linear-gradient(90deg, transparent 0 8%, rgba(120,142,182,.68) 8% 9%, transparent 9% 17%),
+    linear-gradient(0deg, rgba(14,23,40,.84) 0 30%, rgba(20,32,54,.70) 30% 42%, transparent 58%);
+  opacity:.92;
+}
+
+/* starry */
+.hanabi-stage[data-scene="starry"] .sky-overlay::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 12% 20%, rgba(246,236,171,.62) 0 1px, transparent 2px),
+    radial-gradient(circle at 24% 12%, rgba(222,234,255,.66) 0 1px, transparent 2px),
+    radial-gradient(circle at 36% 18%, rgba(225,236,255,.62) 0 1.2px, transparent 2.4px),
+    radial-gradient(circle at 52% 14%, rgba(246,236,171,.55) 0 1px, transparent 2px),
+    radial-gradient(circle at 66% 11%, rgba(220,231,255,.62) 0 1px, transparent 2px),
+    radial-gradient(circle at 78% 20%, rgba(234,242,255,.64) 0 1.2px, transparent 2.3px),
+    radial-gradient(circle at 88% 14%, rgba(245,232,162,.54) 0 1px, transparent 2px);
+  opacity:.85;
+}
+.hanabi-stage[data-scene="starry"] .location-mid::before{
+  background:
+    linear-gradient(180deg, transparent 0 58%, rgba(180,195,232,.16) 58% 60%, transparent 60% 100%),
+    linear-gradient(0deg, rgba(56,72,118,.50) 0 20%, rgba(31,42,74,.46) 20% 32%, transparent 48%);
+  opacity:.88;
+}
+.hanabi-stage[data-scene="starry"] .location-front::before{
+  background:
+    linear-gradient(0deg, rgba(11,19,38,.80) 0 30%, rgba(22,33,58,.64) 30% 42%, transparent 58%);
+  opacity:.94;
+}
+
 .stage-caption{position:absolute;z-index:5;left:0;right:0;bottom:0;padding:clamp(14px,3vw,24px);background:linear-gradient(180deg,rgba(3,6,18,0) 0%,rgba(3,6,18,.46) 45%,rgba(3,6,18,.82) 100%)}
 .stage-caption h2{font-size:clamp(1.06rem,2.2vw,1.38rem)} .stage-caption .small-text{margin:8px 0 0;font-size:.88rem}
 .night-message{margin:10px 0 0;font-family:"Shippori Mincho B1",serif;font-size:clamp(1.05rem,2.8vw,1.45rem);text-shadow:0 2px 12px rgba(255,255,255,.3)}
