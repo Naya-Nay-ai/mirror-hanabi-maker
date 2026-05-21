@@ -81,24 +81,24 @@ function drawMoodOverlay(){
 
   const layerOverrides = {
     festival: {
-      midBg: 'linear-gradient(0deg, rgba(248,177,78,0.16) 0 26%, transparent 44%)',
-      frontBg: 'linear-gradient(0deg, rgba(73,27,10,0.38) 0 12%, transparent 24%)'
+      midBg: 'linear-gradient(0deg, rgba(255,197,110,0.18) 0 10%, rgba(255,197,110,0.12) 10% 18%, rgba(31,67,101,0.18) 18% 26%, transparent 40%), repeating-linear-gradient(90deg, rgba(255,217,148,0.18) 0 10px, rgba(239,145,84,0.10) 10px 22px, transparent 22px 44px), linear-gradient(180deg, rgba(33,75,117,0.14) 0 60%, transparent 84%)',
+      frontBg: 'linear-gradient(0deg, rgba(16,22,38,0.56) 0 16%, rgba(24,30,50,0.42) 16% 24%, transparent 34%), repeating-linear-gradient(90deg, rgba(255,210,140,0.20) 0 12px, rgba(255,162,90,0.12) 12px 24px, transparent 24px 48px)'
     },
     seaside: {
-      midBg: 'linear-gradient(0deg, rgba(131,223,255,0.12) 0 28%, transparent 46%)',
-      frontBg: 'linear-gradient(0deg, rgba(8,47,79,0.36) 0 14%, transparent 26%)'
+      midBg: 'linear-gradient(180deg, rgba(141,212,255,0.24) 0 8%, rgba(116,191,243,0.14) 8% 18%, rgba(45,118,176,0.18) 18% 28%, transparent 44%), repeating-linear-gradient(0deg, rgba(188,236,255,0.16) 0 2px, transparent 2px 9px), linear-gradient(0deg, rgba(35,93,152,0.12) 0 22%, transparent 36%)',
+      frontBg: 'linear-gradient(0deg, rgba(10,51,91,0.50) 0 18%, rgba(14,71,122,0.34) 18% 30%, transparent 44%), repeating-linear-gradient(0deg, rgba(168,226,255,0.12) 0 2px, transparent 2px 10px)'
     },
     harbor: {
-      midBg: 'linear-gradient(0deg, rgba(241,210,122,0.14) 0 24%, transparent 42%)',
-      frontBg: 'linear-gradient(0deg, rgba(11,24,48,0.40) 0 12%, transparent 24%)'
+      midBg: 'linear-gradient(0deg, rgba(253,223,139,0.20) 0 8%, rgba(89,132,174,0.16) 8% 18%, transparent 34%), repeating-linear-gradient(90deg, rgba(255,224,153,0.18) 0 8px, rgba(255,180,112,0.08) 8px 18px, transparent 18px 36px), linear-gradient(180deg, rgba(32,55,86,0.26) 0 58%, transparent 86%)',
+      frontBg: 'linear-gradient(0deg, rgba(8,18,36,0.62) 0 20%, rgba(13,30,56,0.46) 20% 34%, transparent 46%), repeating-linear-gradient(90deg, rgba(255,217,133,0.16) 0 6px, transparent 6px 16px), linear-gradient(180deg, rgba(23,36,62,0.34) 0 44%, transparent 76%)'
     },
     rooftop: {
-      midBg: 'linear-gradient(0deg, rgba(169,182,207,0.12) 0 22%, transparent 40%)',
-      frontBg: 'linear-gradient(0deg, rgba(24,31,52,0.44) 0 10%, transparent 22%)'
+      midBg: 'linear-gradient(0deg, rgba(148,166,196,0.14) 0 14%, rgba(74,95,126,0.26) 14% 28%, transparent 42%), repeating-linear-gradient(90deg, rgba(151,170,200,0.18) 0 14px, rgba(82,100,130,0.12) 14px 30px, transparent 30px 56px), linear-gradient(180deg, rgba(21,29,47,0.24) 0 58%, transparent 86%)',
+      frontBg: 'linear-gradient(0deg, rgba(20,27,44,0.68) 0 14%, rgba(39,50,77,0.58) 14% 20%, rgba(16,24,39,0.48) 20% 30%, transparent 40%), repeating-linear-gradient(90deg, rgba(98,116,148,0.22) 0 18px, rgba(47,61,88,0.18) 18px 32px, transparent 32px 62px)'
     },
     starry: {
-      midBg: 'linear-gradient(0deg, rgba(207,216,255,0.10) 0 18%, transparent 36%)',
-      frontBg: 'linear-gradient(0deg, rgba(10,14,34,0.42) 0 10%, transparent 22%)'
+      midBg: 'linear-gradient(0deg, rgba(173,188,230,0.10) 0 8%, rgba(92,109,157,0.22) 8% 18%, rgba(41,54,88,0.30) 18% 30%, transparent 44%), linear-gradient(180deg, rgba(14,23,44,0.10) 0 58%, transparent 88%)',
+      frontBg: 'linear-gradient(0deg, rgba(8,13,28,0.72) 0 16%, rgba(17,28,52,0.54) 16% 26%, transparent 40%), radial-gradient(circle at 22% 6%, rgba(220,232,255,0.10) 0 2px, transparent 3px), radial-gradient(circle at 68% 10%, rgba(210,224,255,0.08) 0 1.5px, transparent 3px)'
     }
   };
 
