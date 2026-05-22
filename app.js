@@ -121,7 +121,7 @@ function startAnimation(){if(!animationStarted){animationStarted=true;requestAni
 function tick(time){if(!width||!height||resultArea.hidden){requestAnimationFrame(tick);return;}ctx.globalCompositeOperation='destination-out';ctx.fillStyle='rgba(0,0,0,0.18)';ctx.fillRect(0,0,width,height);ctx.globalCompositeOperation='lighter';if(time-lastLaunch>760&&launchCount<10){launchRocket();launchCount++;lastLaunch=time}updateRockets();updateParticles();requestAnimationFrame(tick)}
 function launchRocket(){
   const x=width*(0.2+rng()*0.6);
-  const targetY=height*(0.14+rng()*0.20);
+  const targetY=height*(0.13+rng()*0.22);
   rockets.push({
     x,
     y:height+10,
@@ -129,16 +129,56 @@ function launchRocket(){
     vy:-7.8-rng()*1.6,
     targetY,
     color:chooseColor(),
-    fuse:6+rng()*8
+    fuse:5+rng()*10
   });
 }
-function updateRockets(){ctx.globalCompositeOperation='lighter';rockets=rockets.filter((r)=>{r.x+=r.vx;r.y+=r.vy;r.vy+=0.032;drawGlow(r.x,r.y,2.3,r.color,0.9);if(r.y<=r.targetY){if(r.fuse>0){r.fuse-=1;return true}explode(r.x,r.y);return false}if(r.vy>=-0.45){explode(r.x,r.y);return false}return true})}
+function updateRockets(){
+  ctx.globalCompositeOperation='lighter';
+  rockets=rockets.filter((r)=>{
+    r.x+=r.vx;
+    r.y+=r.vy;
+    r.vy+=0.032;
+
+    if(r.y<=r.targetY&&!r.armed){
+      r.armed=true;
+      r.fuse=5+rng()*10;
+      r.vy=Math.max(r.vy*0.18,-0.65);
+    }
+
+    if(r.armed){
+      r.vx*=0.96;
+      r.vy=r.vy*0.82+0.018;
+      r.fuse-=1;
+      drawGlow(r.x,r.y,2.1,r.color,0.82);
+
+      if(r.fuse<=0||r.vy>=-0.02){
+        explode(r.x+(rng()-0.5)*4.2,r.y+(rng()-0.5)*2.8);
+        return false;
+      }
+
+      return true;
+    }
+
+    drawGlow(r.x,r.y,2.3,r.color,0.9);
+    return true;
+  });
+}
 function updateParticles(){particles=particles.filter((p)=>{p.x+=p.vx;p.y+=p.vy;p.vx*=p.drag;p.vy=p.vy*p.drag+p.gravity;p.life-=p.decay;if(p.life<=0)return false;drawGlow(p.x,p.y,p.size,p.color,p.life);return true})}
 function explode(x,y){const colors=[COLOR_MAP[activeSettings.color1].hex,COLOR_MAP[activeSettings.color2].hex,'#fff7e8'];const type=activeSettings.fireworkType;if(type==='heart')return explodeHeart(x,y,colors);if(type==='willow')return explodeWillow(x,y,colors);if(type==='sparkle')return explodeSparkle(x,y,colors);if(type==='droplet')return explodeDroplet(x,y,colors);explodeRound(x,y,colors,90)}
 function explodeRound(x,y,colors,count){for(let i=0;i<count;i++){const a=(Math.PI*2*i)/count;const s=1+rng()*3.1;addParticle(x,y,Math.cos(a)*s,Math.sin(a)*s,pick(colors),1.1+rng()*1.4,0.988,0.021,0.007+rng()*0.0045)}}
 function explodeWillow(x,y,colors){for(let i=0;i<120;i++){const a=-Math.PI*0.06+rng()*Math.PI*1.12;const s=0.9+rng()*2.3;const vx=Math.cos(a)*s*0.72;const vy=Math.sin(a)*s*0.48-(0.22+rng()*0.3);addParticle(x,y,vx,vy,pick(colors),1+rng()*1.3,0.991,0.03,0.0058+rng()*0.0036)}}
 function explodeSparkle(x,y,colors){for(let i=0;i<58;i++){const a=(Math.PI*2*i)/58;const s=0.9+rng()*2.6;addParticle(x,y,Math.cos(a)*s,Math.sin(a)*s,pick(colors),0.95+rng()*1.05,0.989,0.018,0.0072+rng()*0.0042)}for(let i=0;i<95;i++){const a=rng()*Math.PI*2;const s=0.8+rng()*4;addParticle(x,y,Math.cos(a)*s,Math.sin(a)*s,'#fff7e8',0.65+rng()*0.85,0.976,0.014,0.016+rng()*0.009)}}
-function explodeDroplet(x,y,colors){for(let i=0;i<96;i++){const t=(i/95)*2-1;const spread=0.25+Math.abs(t)*1.1;const vx=t*(0.55+rng()*1.45)*spread;const vy=-0.8+Math.abs(t)*(0.7+rng()*1.1)+rng()*0.28;addParticle(x,y,vx,vy,pick(colors),1+rng()*1.2,0.987,0.027,0.0068+rng()*0.0042)}}
+function explodeDroplet(x,y,colors){
+  for(let i=0;i<100;i++){
+    const t=(i/99)*2-1+(rng()-0.5)*0.14;
+    const wing=Math.min(1.28,0.2+Math.abs(t)*1.22+rng()*0.08);
+    const spawnX=x+t*(0.9+rng()*1.7);
+    const spawnY=y-(0.15+rng()*0.85)+Math.abs(t)*(0.22+rng()*0.46);
+    const vx=t*(0.45+rng()*1.4)*wing;
+    const vy=-1.05+rng()*0.48+Math.abs(t)*(0.88+rng()*1.06);
+    addParticle(spawnX,spawnY,vx,vy,pick(colors),0.95+rng()*1.15,0.988,0.024,0.006+rng()*0.0038);
+  }
+}
 function explodeHeart(x,y,colors){const c=110;for(let i=0;i<c;i++){const t=(Math.PI*2*i)/c;const hx=16*Math.pow(Math.sin(t),3);const hy=-(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t));addParticle(x,y,hx*(0.14+rng()*0.045),hy*(0.14+rng()*0.045),pick(colors),1.1+rng()*1.3,0.988,0.02,0.007+rng()*0.004)}}
 function addParticle(x,y,vx,vy,color,size,drag,gravity,decay){particles.push({x,y,vx,vy,color,size,drag,gravity,decay,life:1})}
 function drawGlow(x,y,radius,color,alpha){const glow=radius*4.2;const g=ctx.createRadialGradient(x,y,0,x,y,glow);g.addColorStop(0,hexToRgba(color,alpha));g.addColorStop(0.3,hexToRgba(color,alpha*0.45));g.addColorStop(1,hexToRgba(color,0));ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,glow,0,Math.PI*2);ctx.fill()}
