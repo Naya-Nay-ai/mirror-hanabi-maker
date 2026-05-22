@@ -118,29 +118,30 @@ if (hanabiStage) {
 }
 function resetShow(){rockets=[];particles=[];launchCount=0;lastLaunch=0;rng=mulberry32(hashString(JSON.stringify(activeSettings)))}
 function startAnimation(){if(!animationStarted){animationStarted=true;requestAnimationFrame(tick)}}
-function tick(time){if(!width||!height||resultArea.hidden){requestAnimationFrame(tick);return;}ctx.globalCompositeOperation='destination-out';ctx.fillStyle='rgba(0,0,0,0.18)';ctx.fillRect(0,0,width,height);ctx.globalCompositeOperation='lighter';if(time-lastLaunch>850&&launchCount<10){launchRocket();launchCount++;lastLaunch=time}updateRockets();updateParticles();requestAnimationFrame(tick)}
+function tick(time){if(!width||!height||resultArea.hidden){requestAnimationFrame(tick);return;}ctx.globalCompositeOperation='destination-out';ctx.fillStyle='rgba(0,0,0,0.18)';ctx.fillRect(0,0,width,height);ctx.globalCompositeOperation='lighter';if(time-lastLaunch>760&&launchCount<10){launchRocket();launchCount++;lastLaunch=time}updateRockets();updateParticles();requestAnimationFrame(tick)}
 function launchRocket(){
   const x=width*(0.2+rng()*0.6);
-  const targetY=height*(0.10+rng()*0.26);
+  const targetY=height*(0.14+rng()*0.20);
   rockets.push({
     x,
     y:height+10,
-    vx:(rng()-0.5)*1.2,
-    vy:-7.2-rng()*2.2,
+    vx:(rng()-0.5)*0.8,
+    vy:-7.8-rng()*1.6,
     targetY,
-    color:chooseColor()
+    color:chooseColor(),
+    fuse:6+rng()*8
   });
 }
-function updateRockets(){ctx.globalCompositeOperation='lighter';rockets=rockets.filter((r)=>{r.x+=r.vx;r.y+=r.vy;r.vy+=0.034;drawGlow(r.x,r.y,2.8,r.color,0.95);if(r.y<=r.targetY||r.vy>=-0.6){explode(r.x,r.y);return false}return true})}
+function updateRockets(){ctx.globalCompositeOperation='lighter';rockets=rockets.filter((r)=>{r.x+=r.vx;r.y+=r.vy;r.vy+=0.032;drawGlow(r.x,r.y,2.3,r.color,0.9);if(r.y<=r.targetY){if(r.fuse>0){r.fuse-=1;return true}explode(r.x,r.y);return false}if(r.vy>=-0.45){explode(r.x,r.y);return false}return true})}
 function updateParticles(){particles=particles.filter((p)=>{p.x+=p.vx;p.y+=p.vy;p.vx*=p.drag;p.vy=p.vy*p.drag+p.gravity;p.life-=p.decay;if(p.life<=0)return false;drawGlow(p.x,p.y,p.size,p.color,p.life);return true})}
 function explode(x,y){const colors=[COLOR_MAP[activeSettings.color1].hex,COLOR_MAP[activeSettings.color2].hex,'#fff7e8'];const type=activeSettings.fireworkType;if(type==='heart')return explodeHeart(x,y,colors);if(type==='willow')return explodeWillow(x,y,colors);if(type==='sparkle')return explodeSparkle(x,y,colors);if(type==='droplet')return explodeDroplet(x,y,colors);explodeRound(x,y,colors,90)}
-function explodeRound(x,y,colors,count){for(let i=0;i<count;i++){const a=(Math.PI*2*i)/count;const s=1.4+rng()*4.2;addParticle(x,y,Math.cos(a)*s,Math.sin(a)*s,pick(colors),1.6+rng()*1.8,0.985,0.028,0.01+rng()*0.007)}}
-function explodeWillow(x,y,colors){for(let i=0;i<110;i++){const a=Math.PI+rng()*Math.PI;const s=1.2+rng()*3.4;addParticle(x,y,Math.cos(a)*s,Math.sin(a)*s*0.62,pick(colors),1.4+rng()*1.9,0.992,0.052,0.008+rng()*0.005)}}
-function explodeSparkle(x,y,colors){explodeRound(x,y,colors,42);for(let i=0;i<75;i++){const a=rng()*Math.PI*2;const s=2+rng()*6;addParticle(x,y,Math.cos(a)*s,Math.sin(a)*s,'#fff7e8',1+rng()*1.1,0.952,0.018,0.034+rng()*0.016)}}
-function explodeDroplet(x,y,colors){for(let i=0;i<92;i++){const a=rng()*Math.PI*2;const s=1+rng()*3.2;addParticle(x,y,Math.cos(a)*s*0.7,Math.sin(a)*s*0.42+(0.48+rng()),pick(colors),1.2+rng()*1.8,0.986,0.043,0.01+rng()*0.006)}}
-function explodeHeart(x,y,colors){const c=120;for(let i=0;i<c;i++){const t=(Math.PI*2*i)/c;const hx=16*Math.pow(Math.sin(t),3);const hy=-(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t));addParticle(x,y,hx*(0.18+rng()*0.06),hy*(0.18+rng()*0.06),pick(colors),1.4+rng()*2,0.986,0.026,0.01+rng()*0.006)}}
+function explodeRound(x,y,colors,count){for(let i=0;i<count;i++){const a=(Math.PI*2*i)/count;const s=1+rng()*3.1;addParticle(x,y,Math.cos(a)*s,Math.sin(a)*s,pick(colors),1.1+rng()*1.4,0.988,0.021,0.007+rng()*0.0045)}}
+function explodeWillow(x,y,colors){for(let i=0;i<120;i++){const a=-Math.PI*0.06+rng()*Math.PI*1.12;const s=0.9+rng()*2.3;const vx=Math.cos(a)*s*0.72;const vy=Math.sin(a)*s*0.48-(0.22+rng()*0.3);addParticle(x,y,vx,vy,pick(colors),1+rng()*1.3,0.991,0.03,0.0058+rng()*0.0036)}}
+function explodeSparkle(x,y,colors){for(let i=0;i<58;i++){const a=(Math.PI*2*i)/58;const s=0.9+rng()*2.6;addParticle(x,y,Math.cos(a)*s,Math.sin(a)*s,pick(colors),0.95+rng()*1.05,0.989,0.018,0.0072+rng()*0.0042)}for(let i=0;i<95;i++){const a=rng()*Math.PI*2;const s=0.8+rng()*4;addParticle(x,y,Math.cos(a)*s,Math.sin(a)*s,'#fff7e8',0.65+rng()*0.85,0.976,0.014,0.016+rng()*0.009)}}
+function explodeDroplet(x,y,colors){for(let i=0;i<96;i++){const t=(i/95)*2-1;const spread=0.25+Math.abs(t)*1.1;const vx=t*(0.55+rng()*1.45)*spread;const vy=-0.8+Math.abs(t)*(0.7+rng()*1.1)+rng()*0.28;addParticle(x,y,vx,vy,pick(colors),1+rng()*1.2,0.987,0.027,0.0068+rng()*0.0042)}}
+function explodeHeart(x,y,colors){const c=110;for(let i=0;i<c;i++){const t=(Math.PI*2*i)/c;const hx=16*Math.pow(Math.sin(t),3);const hy=-(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t));addParticle(x,y,hx*(0.14+rng()*0.045),hy*(0.14+rng()*0.045),pick(colors),1.1+rng()*1.3,0.988,0.02,0.007+rng()*0.004)}}
 function addParticle(x,y,vx,vy,color,size,drag,gravity,decay){particles.push({x,y,vx,vy,color,size,drag,gravity,decay,life:1})}
-function drawGlow(x,y,radius,color,alpha){const g=ctx.createRadialGradient(x,y,0,x,y,radius*5);g.addColorStop(0,hexToRgba(color,alpha));g.addColorStop(0.3,hexToRgba(color,alpha*0.48));g.addColorStop(1,hexToRgba(color,0));ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,radius*5,0,Math.PI*2);ctx.fill()}
+function drawGlow(x,y,radius,color,alpha){const glow=radius*4.2;const g=ctx.createRadialGradient(x,y,0,x,y,glow);g.addColorStop(0,hexToRgba(color,alpha));g.addColorStop(0.3,hexToRgba(color,alpha*0.45));g.addColorStop(1,hexToRgba(color,0));ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,glow,0,Math.PI*2);ctx.fill()}
 function chooseColor(){return pick([COLOR_MAP[activeSettings.color1].hex,COLOR_MAP[activeSettings.color2].hex,'#fff7e8'])}
 function pick(list){return list[Math.floor(rng()*list.length)]}
 function hexToRgba(hex,a){const v=parseInt(hex.replace('#',''),16);return`rgba(${(v>>16)&255}, ${(v>>8)&255}, ${v&255}, ${Math.max(0,Math.min(a,1))})`}
