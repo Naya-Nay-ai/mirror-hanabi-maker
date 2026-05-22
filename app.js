@@ -141,7 +141,7 @@ function explodeSparkle(x,y,colors){for(let i=0;i<58;i++){const a=(Math.PI*2*i)/
 function explodeDroplet(x,y,colors){for(let i=0;i<96;i++){const t=(i/95)*2-1;const spread=0.25+Math.abs(t)*1.1;const vx=t*(0.55+rng()*1.45)*spread;const vy=-0.8+Math.abs(t)*(0.7+rng()*1.1)+rng()*0.28;addParticle(x,y,vx,vy,pick(colors),1+rng()*1.2,0.987,0.027,0.0068+rng()*0.0042)}}
 function explodeHeart(x,y,colors){const c=110;for(let i=0;i<c;i++){const t=(Math.PI*2*i)/c;const hx=16*Math.pow(Math.sin(t),3);const hy=-(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t));addParticle(x,y,hx*(0.14+rng()*0.045),hy*(0.14+rng()*0.045),pick(colors),1.1+rng()*1.3,0.988,0.02,0.007+rng()*0.004)}}
 function addParticle(x,y,vx,vy,color,size,drag,gravity,decay){particles.push({x,y,vx,vy,color,size,drag,gravity,decay,life:1})}
-function drawGlow(x,y,radius,color,alpha){const g=ctx.createRadialGradient(x,y,0,x,y,radius*5);g.addColorStop(0,hexToRgba(color,alpha));g.addColorStop(0.3,hexToRgba(color,alpha*0.48));g.addColorStop(1,hexToRgba(color,0));ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,radius*5,0,Math.PI*2);ctx.fill()}
+function drawGlow(x,y,radius,color,alpha){const glow=radius*4.2;const g=ctx.createRadialGradient(x,y,0,x,y,glow);g.addColorStop(0,hexToRgba(color,alpha));g.addColorStop(0.3,hexToRgba(color,alpha*0.45));g.addColorStop(1,hexToRgba(color,0));ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,glow,0,Math.PI*2);ctx.fill()}
 function chooseColor(){return pick([COLOR_MAP[activeSettings.color1].hex,COLOR_MAP[activeSettings.color2].hex,'#fff7e8'])}
 function pick(list){return list[Math.floor(rng()*list.length)]}
 function hexToRgba(hex,a){const v=parseInt(hex.replace('#',''),16);return`rgba(${(v>>16)&255}, ${(v>>8)&255}, ${v&255}, ${Math.max(0,Math.min(a,1))})`}
