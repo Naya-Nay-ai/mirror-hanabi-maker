@@ -68,6 +68,10 @@ function updateResultText(){const mood=MOOD_MAP[activeSettings.mood]||MOOD_MAP.f
 function drawMoodOverlay(){
   const mood = MOOD_MAP[activeSettings.mood] || MOOD_MAP.festival;
 
+if (hanabiStage) {
+  hanabiStage.dataset.scene = activeSettings.mood;
+}
+  
   skyOverlay.style.setProperty('--sky-gradient', mood.sky || MOOD_MAP.festival.sky);
   skyOverlay.style.setProperty('--location-lights', mood.lights || MOOD_MAP.festival.lights);
 
