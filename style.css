@@ -26,7 +26,14 @@ select option{color:#101820} input::placeholder{color:rgba(255,255,255,.5)}
 .primary-button{color:#22140f;background:linear-gradient(135deg,#ffd56e,#ffaf7f 52%,#b5deff)} .ghost-button{color:var(--text);background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2)} .tiny{padding:10px 14px;font-size:.88rem}
 .result-area{display:grid;gap:16px}
 .hanabi-stage{position:relative;border-radius:26px;overflow:hidden;min-height:min(88vh,850px);border:1px solid rgba(255,255,255,.18);background:#050b18;box-shadow:0 30px 70px rgba(0,0,0,.5)}
-#hanabiCanvas,.sky-overlay,.location-mid,.location-front{position:absolute;inset:0;width:100%;height:100%} #hanabiCanvas{pointer-events:none;z-index:4} .sky-overlay{z-index:1;pointer-events:none;background:var(--sky-gradient),var(--location-lights)} .location-mid{z-index:2;pointer-events:none;background:rgba(24,36,60,.78);clip-path:var(--mid-shape)} .location-front{z-index:3;pointer-events:none;background:rgba(7,10,20,.94);clip-path:var(--front-shape)}
+.hanabi-stage{position:relative;border-radius:26px;overflow:hidden;min-height:min(88vh,850px);border:1px solid rgba(255,255,255,.18);background:#050b18;box-shadow:0 30px 70px rgba(0,0,0,.5)}
+.hanabi-stage::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background-image:var(--scene-image);background-size:cover;background-position:center;background-repeat:no-repeat;opacity:.74;filter:saturate(1.08) contrast(1.04) brightness(.9)}
+.hanabi-stage[data-scene="festival"]{--scene-image:url("assets/scenes/festival-scene.png")}
+.hanabi-stage[data-scene="seaside"]{--scene-image:url("assets/scenes/seaside-scene.png")}
+.hanabi-stage[data-scene="harbor"]{--scene-image:url("assets/scenes/harbor-scene.png")}
+.hanabi-stage[data-scene="rooftop"]{--scene-image:url("assets/scenes/rooftop-scene.png")}
+.hanabi-stage[data-scene="starry"]{--scene-image:url("assets/scenes/starry-scene.png")}
+#hanabiCanvas,.sky-overlay,.location-mid,.location-front{position:absolute;inset:0;width:100%;height:100%} #hanabiCanvas{pointer-events:none;z-index:4} .sky-overlay{z-index:1;pointer-events:none;background:var(--sky-gradient),var(--location-lights);opacity:.45} .location-mid{z-index:2;pointer-events:none;background:rgba(24,36,60,.28);clip-path:var(--mid-shape);opacity:.28} .location-front{z-index:3;pointer-events:none;background:rgba(7,10,20,.42);clip-path:var(--front-shape);opacity:.38}
 .stage-caption{position:absolute;z-index:5;left:0;right:0;bottom:0;padding:clamp(14px,3vw,24px);background:linear-gradient(180deg,rgba(3,6,18,0) 0%,rgba(3,6,18,.46) 45%,rgba(3,6,18,.82) 100%)}
 .stage-caption h2{font-size:clamp(1.06rem,2.2vw,1.38rem)} .stage-caption .small-text{margin:8px 0 0;font-size:.88rem}
 .night-message{margin:10px 0 0;font-family:"Shippori Mincho B1",serif;font-size:clamp(1.05rem,2.8vw,1.45rem);text-shadow:0 2px 12px rgba(255,255,255,.3)}
