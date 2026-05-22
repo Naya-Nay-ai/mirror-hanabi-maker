@@ -121,14 +121,15 @@ function startAnimation(){if(!animationStarted){animationStarted=true;requestAni
 function tick(time){if(!width||!height||resultArea.hidden){requestAnimationFrame(tick);return;}ctx.globalCompositeOperation='destination-out';ctx.fillStyle='rgba(0,0,0,0.18)';ctx.fillRect(0,0,width,height);ctx.globalCompositeOperation='lighter';if(time-lastLaunch>760&&launchCount<10){launchRocket();launchCount++;lastLaunch=time}updateRockets();updateParticles();requestAnimationFrame(tick)}
 function launchRocket(){
   const x=width*(0.2+rng()*0.6);
-  const targetY=height*(0.10+rng()*0.26);
+  const targetY=height*(0.14+rng()*0.20);
   rockets.push({
     x,
     y:height+10,
-    vx:(rng()-0.5)*1.2,
-    vy:-7.2-rng()*2.2,
+    vx:(rng()-0.5)*0.8,
+    vy:-7.8-rng()*1.6,
     targetY,
-    color:chooseColor()
+    color:chooseColor(),
+    fuse:6+rng()*8
   });
 }
 function updateRockets(){ctx.globalCompositeOperation='lighter';rockets=rockets.filter((r)=>{r.x+=r.vx;r.y+=r.vy;r.vy+=0.034;drawGlow(r.x,r.y,2.8,r.color,0.95);if(r.y<=r.targetY||r.vy>=-0.6){explode(r.x,r.y);return false}return true})}
