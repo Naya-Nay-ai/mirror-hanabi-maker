@@ -118,7 +118,7 @@ if (hanabiStage) {
 }
 function resetShow(){rockets=[];particles=[];launchCount=0;lastLaunch=0;rng=mulberry32(hashString(JSON.stringify(activeSettings)))}
 function startAnimation(){if(!animationStarted){animationStarted=true;requestAnimationFrame(tick)}}
-function tick(time){if(!width||!height||resultArea.hidden){requestAnimationFrame(tick);return;}ctx.globalCompositeOperation='destination-out';ctx.fillStyle='rgba(0,0,0,0.18)';ctx.fillRect(0,0,width,height);ctx.globalCompositeOperation='lighter';if(time-lastLaunch>850&&launchCount<10){launchRocket();launchCount++;lastLaunch=time}updateRockets();updateParticles();requestAnimationFrame(tick)}
+function tick(time){if(!width||!height||resultArea.hidden){requestAnimationFrame(tick);return;}ctx.globalCompositeOperation='destination-out';ctx.fillStyle='rgba(0,0,0,0.18)';ctx.fillRect(0,0,width,height);ctx.globalCompositeOperation='lighter';if(time-lastLaunch>760&&launchCount<10){launchRocket();launchCount++;lastLaunch=time}updateRockets();updateParticles();requestAnimationFrame(tick)}
 function launchRocket(){
   const x=width*(0.2+rng()*0.6);
   const targetY=height*(0.10+rng()*0.26);
