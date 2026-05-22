@@ -132,7 +132,7 @@ function launchRocket(){
     fuse:6+rng()*8
   });
 }
-function updateRockets(){ctx.globalCompositeOperation='lighter';rockets=rockets.filter((r)=>{r.x+=r.vx;r.y+=r.vy;r.vy+=0.034;drawGlow(r.x,r.y,2.8,r.color,0.95);if(r.y<=r.targetY||r.vy>=-0.6){explode(r.x,r.y);return false}return true})}
+function updateRockets(){ctx.globalCompositeOperation='lighter';rockets=rockets.filter((r)=>{r.x+=r.vx;r.y+=r.vy;r.vy+=0.032;drawGlow(r.x,r.y,2.3,r.color,0.9);if(r.y<=r.targetY){if(r.fuse>0){r.fuse-=1;return true}explode(r.x,r.y);return false}if(r.vy>=-0.45){explode(r.x,r.y);return false}return true})}
 function updateParticles(){particles=particles.filter((p)=>{p.x+=p.vx;p.y+=p.vy;p.vx*=p.drag;p.vy=p.vy*p.drag+p.gravity;p.life-=p.decay;if(p.life<=0)return false;drawGlow(p.x,p.y,p.size,p.color,p.life);return true})}
 function explode(x,y){const colors=[COLOR_MAP[activeSettings.color1].hex,COLOR_MAP[activeSettings.color2].hex,'#fff7e8'];const type=activeSettings.fireworkType;if(type==='heart')return explodeHeart(x,y,colors);if(type==='willow')return explodeWillow(x,y,colors);if(type==='sparkle')return explodeSparkle(x,y,colors);if(type==='droplet')return explodeDroplet(x,y,colors);explodeRound(x,y,colors,90)}
 function explodeRound(x,y,colors,count){for(let i=0;i<count;i++){const a=(Math.PI*2*i)/count;const s=1.4+rng()*4.2;addParticle(x,y,Math.cos(a)*s,Math.sin(a)*s,pick(colors),1.6+rng()*1.8,0.985,0.028,0.01+rng()*0.007)}}
