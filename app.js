@@ -166,17 +166,101 @@ function updateRockets(){
 function updateParticles(){particles=particles.filter((p)=>{p.x+=p.vx;p.y+=p.vy;p.vx*=p.drag;p.vy=p.vy*p.drag+p.gravity;p.life-=p.decay;if(p.life<=0)return false;drawGlow(p.x,p.y,p.size,p.color,p.life);return true})}
 function explode(x,y){const colors=[COLOR_MAP[activeSettings.color1].hex,COLOR_MAP[activeSettings.color2].hex,'#fff7e8'];const type=activeSettings.fireworkType;if(type==='heart')return explodeHeart(x,y,colors);if(type==='willow')return explodeWillow(x,y,colors);if(type==='sparkle')return explodeSparkle(x,y,colors);if(type==='droplet')return explodeDroplet(x,y,colors);explodeRound(x,y,colors,90)}
 function explodeRound(x,y,colors,count){for(let i=0;i<count;i++){const a=(Math.PI*2*i)/count;const s=1+rng()*3.1;addParticle(x,y,Math.cos(a)*s,Math.sin(a)*s,pick(colors),1.1+rng()*1.4,0.988,0.021,0.007+rng()*0.0045)}}
-function explodeWillow(x,y,colors){for(let i=0;i<120;i++){const a=-Math.PI*0.06+rng()*Math.PI*1.12;const s=0.9+rng()*2.3;const vx=Math.cos(a)*s*0.72;const vy=Math.sin(a)*s*0.48-(0.22+rng()*0.3);addParticle(x,y,vx,vy,pick(colors),1+rng()*1.3,0.991,0.03,0.0058+rng()*0.0036)}}
+function explodeWillow(x,y,colors){
+  for(let i=0;i<170;i++){
+    const theta=rng()*Math.PI;
+    const radius=26+rng()*58;
+    const ox=Math.cos(theta)*radius*(0.82+rng()*0.24);
+    const oy=-Math.sin(theta)*radius*(0.58+rng()*0.24);
+
+    const vx=ox*(0.006+rng()*0.007)+(rng()-0.5)*0.18;
+    const vy=0.22+rng()*0.74+Math.abs(ox)*0.002;
+
+    addParticle(
+      x+ox,
+      y+oy,
+      vx,
+      vy,
+      pick(colors),
+      0.8+rng()*1.0,
+      0.994,
+      0.025+rng()*0.012,
+      0.0046+rng()*0.0024
+    );
+  }
+
+  for(let i=0;i<34;i++){
+    const a=rng()*Math.PI*2;
+    const r=rng()*18;
+    addParticle(
+      x+Math.cos(a)*r,
+      y+Math.sin(a)*r*0.5,
+      Math.cos(a)*(0.18+rng()*0.22),
+      -0.18+rng()*0.22,
+      pick(colors),
+      0.75+rng()*0.75,
+      0.985,
+      0.018,
+      0.008+rng()*0.004
+    );
+  }
+}
 function explodeSparkle(x,y,colors){for(let i=0;i<58;i++){const a=(Math.PI*2*i)/58;const s=0.9+rng()*2.6;addParticle(x,y,Math.cos(a)*s,Math.sin(a)*s,pick(colors),0.95+rng()*1.05,0.989,0.018,0.0072+rng()*0.0042)}for(let i=0;i<95;i++){const a=rng()*Math.PI*2;const s=0.8+rng()*4;addParticle(x,y,Math.cos(a)*s,Math.sin(a)*s,'#fff7e8',0.65+rng()*0.85,0.976,0.014,0.016+rng()*0.009)}}
 function explodeDroplet(x,y,colors){
-  for(let i=0;i<100;i++){
-    const t=(i/99)*2-1+(rng()-0.5)*0.14;
-    const wing=Math.min(1.28,0.2+Math.abs(t)*1.22+rng()*0.08);
-    const spawnX=x+t*(0.9+rng()*1.7);
-    const spawnY=y-(0.15+rng()*0.85)+Math.abs(t)*(0.22+rng()*0.46);
-    const vx=t*(0.45+rng()*1.4)*wing;
-    const vy=-1.05+rng()*0.48+Math.abs(t)*(0.88+rng()*1.06);
-    addParticle(spawnX,spawnY,vx,vy,pick(colors),0.95+rng()*1.15,0.988,0.024,0.006+rng()*0.0038);
+  const count=125;
+
+  for(let i=0;i<count;i++){
+    const t=(Math.PI*2*i)/count;
+    const screenY=-Math.cos(t);
+    const bottom=(screenY+1)/2;
+    const width=0.22+bottom*0.82;
+    const px=Math.sin(t)*width;
+    let py=screenY;
+
+    if(py< -0.55){
+      py*=1.18;
+    }else if(py>0){
+      py*=0.92;
+    }
+
+    const scaleX=42;
+    const scaleY=54;
+    const ox=px*scaleX+(rng()-0.5)*2.2;
+    const oy=py*scaleY+8+(rng()-0.5)*2.2;
+
+    const vx=px*(0.38+rng()*0.64)+(rng()-0.5)*0.16;
+    const vy=py*(0.28+rng()*0.46)+0.05+rng()*0.12;
+
+    addParticle(
+      x+ox,
+      y+oy,
+      vx,
+      vy,
+      pick(colors),
+      0.95+rng()*1.05,
+      0.988,
+      0.018,
+      0.0065+rng()*0.0032
+    );
+  }
+
+  for(let i=0;i<42;i++){
+    const a=rng()*Math.PI*2;
+    const r=rng()*22;
+    const py=Math.sin(a)*0.9;
+    const px=Math.cos(a)*(0.45+Math.max(0,py)*0.35);
+
+    addParticle(
+      x+px*r,
+      y+py*r+12,
+      px*(0.18+rng()*0.32),
+      py*(0.16+rng()*0.24)+0.04,
+      pick(colors),
+      0.65+rng()*0.75,
+      0.986,
+      0.016,
+      0.009+rng()*0.004
+    );
   }
 }
 function explodeHeart(x,y,colors){const c=110;for(let i=0;i<c;i++){const t=(Math.PI*2*i)/c;const hx=16*Math.pow(Math.sin(t),3);const hy=-(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t));addParticle(x,y,hx*(0.14+rng()*0.045),hy*(0.14+rng()*0.045),pick(colors),1.1+rng()*1.3,0.988,0.02,0.007+rng()*0.004)}}
