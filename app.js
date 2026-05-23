@@ -182,15 +182,42 @@ function explodeWillow(x,y,colors){
   }
 }
 function explodeSparkle(x,y,colors){
-  for(let i=0;i<58;i++){
-    const a=(Math.PI*2*i)/58;
-    const s=(0.9+rng()*2.6)*0.78;
-    addParticle(x,y,Math.cos(a)*s,Math.sin(a)*s,pick(colors),0.76+rng()*0.84,0.989,0.018,0.0072+rng()*0.0042);
-  }
-  for(let i=0;i<95;i++){
+  const sparklePalette=[
+    '#fffdf5','#fff7e8','#ffe9b8','#ffe082','#fff1d1','#f6fbff',
+    ...colors
+  ];
+
+  for(let i=0;i<170;i++){
     const a=rng()*Math.PI*2;
-    const s=(0.8+rng()*4)*0.76;
-    addParticle(x,y,Math.cos(a)*s,Math.sin(a)*s,'#fff7e8',0.52+rng()*0.68,0.976,0.014,0.016+rng()*0.009);
+    const s=(0.5+rng()*3.4)*0.72;
+    const jitter=0.84+rng()*0.36;
+    addParticle(
+      x+(rng()-0.5)*1.4,
+      y+(rng()-0.5)*1.4,
+      Math.cos(a)*s*jitter,
+      Math.sin(a)*s*jitter,
+      pick(sparklePalette),
+      0.34+rng()*0.48,
+      0.972+rng()*0.02,
+      0.012+rng()*0.01,
+      0.010+rng()*0.018
+    );
+  }
+
+  for(let i=0;i<56;i++){
+    const a=rng()*Math.PI*2;
+    const s=(0.5+rng()*2.4)*0.72;
+    addParticle(
+      x+(rng()-0.5)*2.4,
+      y+(rng()-0.5)*2.4,
+      Math.cos(a)*s,
+      Math.sin(a)*s,
+      pick(['#ffffff','#fff7e8','#ffe9b8','#f4f9ff']),
+      0.24+rng()*0.32,
+      0.958+rng()*0.018,
+      0.006+rng()*0.006,
+      0.022+rng()*0.028
+    );
   }
 }
 function explodeDroplet(x,y,colors){
