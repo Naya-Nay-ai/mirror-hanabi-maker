@@ -141,7 +141,7 @@ function updateRockets(){
 
     if(r.y<=r.targetY&&!r.armed){
       r.armed=true;
-      r.fuse=5+rng()*10;
+      r.fuse=11+rng()*8;
       r.vy=Math.max(r.vy*0.18,-0.65);
     }
 
@@ -149,7 +149,7 @@ function updateRockets(){
       r.vx*=0.96;
       r.vy=r.vy*0.82+0.018;
       r.fuse-=1;
-      drawGlow(r.x,r.y,2.1,r.color,0.82);
+      drawGlow(r.x,r.y,2.35,r.color,0.94);
 
       if(r.fuse<=0||r.vy>=-0.02){
         explode(r.x+(rng()-0.5)*4.2,r.y+(rng()-0.5)*2.8);
