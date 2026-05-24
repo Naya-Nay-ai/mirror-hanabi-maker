@@ -173,12 +173,23 @@ function explodeRound(x,y,colors,count){
   }
 }
 function explodeWillow(x,y,colors){
-  for(let i=0;i<120;i++){
-    const a=-Math.PI*0.06+rng()*Math.PI*1.12;
-    const s=(0.9+rng()*2.3)*0.78;
-    const vx=Math.cos(a)*s*0.72;
-    const vy=Math.sin(a)*s*0.48-(0.17+rng()*0.24);
-    addParticle(x,y,vx,vy,pick(colors),0.8+rng()*1.04,0.991,0.03,0.0058+rng()*0.0036);
+  const count=136;
+  for(let i=0;i<count;i++){
+    const spread=(rng()-0.5);
+    const branchBias=(rng()-0.5)*0.45;
+    const vx=spread*(0.58+rng()*0.92)+branchBias*0.32;
+    const vy=-(0.72+rng()*1.18)+Math.abs(spread)*(0.28+rng()*0.26);
+    addParticle(
+      x+(rng()-0.5)*1.8,
+      y-(rng()*0.9),
+      vx,
+      vy,
+      pick(colors),
+      0.52+rng()*0.52,
+      0.986+rng()*0.008,
+      0.026+rng()*0.006,
+      0.005+rng()*0.003
+    );
   }
 }
 function explodeSparkle(x,y,colors){
