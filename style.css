@@ -6,7 +6,7 @@ body{margin:0;min-height:100vh;color:var(--text);font-family:"Zen Maru Gothic",s
 .twinkle-star{position:absolute;color:#ffe8a8;font-size:var(--star-size,14px);line-height:1;opacity:.28;text-shadow:0 0 7px rgba(255,232,168,.95),0 0 16px rgba(231,220,255,.58),0 0 30px rgba(160,180,255,.42);animation:starBlink var(--star-duration,2.8s) ease-in-out infinite;animation-delay:var(--star-delay,0s);transform:scale(.9) rotate(var(--star-rotate,0deg))}
 @keyframes starBlink{0%,100%{opacity:.16;transform:scale(.72) rotate(var(--star-rotate,0deg))}50%{opacity:.82;transform:scale(1.08) rotate(var(--star-rotate,0deg))}}
 
-.app-shell{width:min(980px,calc(100% - 28px));margin:0 auto;padding:22px 0 70px;display:flex;flex-direction:column;gap:18px;position:relative;z-index:1}
+.app-shell{width:min(980px,calc(100% - 28px));margin:0 auto;padding:22px 0 28px;display:flex;flex-direction:column;gap:18px;position:relative;z-index:1}
 .card{border:1px solid rgba(255,255,255,.24);border-radius:24px;background:linear-gradient(180deg,rgba(12,20,38,.62),rgba(6,12,28,.54));box-shadow:0 24px 58px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.08);backdrop-filter:blur(8px)}
 .hero,.make-card,.letter-card,.share-card{padding:clamp(18px,3.5vw,34px)} .hero{min-height:44vh;display:flex;flex-direction:column;justify-content:center}
 .hero h1 span{display:block}.hero h1 span:last-child{white-space:nowrap}
@@ -25,7 +25,7 @@ select option{color:#101820} input::placeholder{color:rgba(255,255,255,.5)}
 .primary-button:hover::after,.ghost-button:hover::after{transform:translateX(420%) rotate(18deg)}
 .primary-button{color:#22140f;background:linear-gradient(135deg,#ffd56e,#ffaf7f 52%,#b5deff)} .ghost-button{color:var(--text);background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2)} .tiny{padding:10px 14px;font-size:.88rem}
 .result-area{display:grid;gap:16px}
-.hanabi-stage{position:relative;border-radius:26px;overflow:hidden;min-height:min(88vh,850px);border:1px solid rgba(255,255,255,.18);background:#050b18;box-shadow:0 30px 70px rgba(0,0,0,.5)}
+.hanabi-stage{position:relative;border-radius:26px;overflow:hidden;min-height:min(92vh,900px);border:1px solid rgba(255,255,255,.18);background:#050b18;box-shadow:0 30px 70px rgba(0,0,0,.5)}
 .hanabi-stage::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background-image:var(--scene-image);background-size:cover;background-position:center;background-repeat:no-repeat;opacity:.74;filter:saturate(1.08) contrast(1.04) brightness(.9)}
 .hanabi-stage[data-scene="festival"]{--scene-image:url("assets/scenes/festival-scene.png")}
 .hanabi-stage[data-scene="seaside"]{--scene-image:url("assets/scenes/seaside-scene.png")}
