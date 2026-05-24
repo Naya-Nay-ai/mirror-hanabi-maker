@@ -232,14 +232,55 @@ function explodeSparkle(x,y,colors){
   }
 }
 function explodeDroplet(x,y,colors){
-  for(let i=0;i<100;i++){
-    const t=(i/99)*2-1+(rng()-0.5)*0.14;
-    const wing=Math.min(1.28,0.2+Math.abs(t)*1.22+rng()*0.08);
-    const spawnX=x+t*(0.7+rng()*1.33);
-    const spawnY=y-(0.12+rng()*0.66)+Math.abs(t)*(0.17+rng()*0.36);
-    const vx=t*(0.35+rng()*1.1)*wing;
-    const vy=-0.82+rng()*0.37+Math.abs(t)*(0.69+rng()*0.83);
-    addParticle(spawnX,spawnY,vx,vy,pick(colors),0.76+rng()*0.92,0.988,0.024,0.006+rng()*0.0038);
+  const outlineCount=102;
+  for(let i=0;i<outlineCount;i++){
+    const t=(i/(outlineCount-1))*2-1;
+    const ax=Math.abs(t);
+    const earBaseStart=0.4;
+    const earTipPeak=0.78;
+    const earOuterEnd=0.97;
+
+    const headWidth=2.05;
+    const headHeight=1.55;
+
+    let px=t*headWidth;
+    let py=-Math.sqrt(Math.max(0,1-t*t))*headHeight;
+
+    if(ax>earBaseStart&&ax<earOuterEnd){
+      const side=Math.sign(t)||1;
+      if(ax<=earTipPeak){
+        const p=(ax-earBaseStart)/(earTipPeak-earBaseStart);
+        px=side*(earBaseStart*headWidth+p*1.08);
+        py=-headHeight-(0.08+p*1.52);
+      }else{
+        const p=(ax-earTipPeak)/(earOuterEnd-earTipPeak);
+        px=side*((earBaseStart*headWidth+1.08)+p*0.48);
+        py=-(headHeight+1.6-p*1.36);
+      }
+    }
+
+    const spawnX=x+px*0.86+(rng()-0.5)*0.28;
+    const spawnY=y+py*0.82+(rng()-0.5)*0.28;
+    const vx=px*(0.22+rng()*0.26)+(rng()-0.5)*0.15;
+    const vy=py*(0.2+rng()*0.24)+(rng()-0.5)*0.14;
+    addParticle(spawnX,spawnY,vx,vy,pick(colors),0.68+rng()*0.64,0.986+rng()*0.006,0.022+rng()*0.004,0.007+rng()*0.0032);
+  }
+
+  const innerCount=52;
+  for(let i=0;i<innerCount;i++){
+    const a=rng()*Math.PI*2;
+    const s=(0.34+rng()*1.2)*0.78;
+    addParticle(
+      x+(rng()-0.5)*0.95,
+      y-(0.28+rng()*0.52),
+      Math.cos(a)*s,
+      Math.sin(a)*s-(0.08+rng()*0.26),
+      pick(colors),
+      0.44+rng()*0.44,
+      0.976+rng()*0.012,
+      0.018+rng()*0.005,
+      0.01+rng()*0.006
+    );
   }
 }
 function explodeHeart(x,y,colors){
