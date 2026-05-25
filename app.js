@@ -244,9 +244,9 @@ function explodeDroplet(x,y,colors){
     let py=uy*headScaleY;
 
     const earZoneY=-0.74;
-    const earCenterX=1.34;
-    const earHalfWidth=0.58;
-    const earHeight=0.9;
+    const earCenterX=1.55;
+    const earHalfWidth=0.44;
+    const earHeight=0.72;
 
     if(py<earZoneY){
       const side=Math.sign(px)||1;
