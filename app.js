@@ -232,21 +232,21 @@ function explodeSparkle(x,y,colors){
   }
 }
 function explodeDroplet(x,y,colors){
-  const outlineCount=120;
+  const outlineCount=132;
   for(let i=0;i<outlineCount;i++){
     const t=(i/outlineCount)*Math.PI*2;
     const ux=Math.cos(t);
     const uy=Math.sin(t);
 
-    const headScaleX=1.9;
-    const headScaleY=1.55;
+    const headScaleX=2.18;
+    const headScaleY=1.86;
     let px=ux*headScaleX;
     let py=uy*headScaleY;
 
-    const earZoneY=-0.2;
-    const earCenterX=1.08;
-    const earHalfWidth=0.48;
-    const earHeight=1.18;
+    const earZoneY=-0.74;
+    const earCenterX=1.34;
+    const earHalfWidth=0.58;
+    const earHeight=0.9;
 
     if(py<earZoneY){
       const side=Math.sign(px)||1;
@@ -254,34 +254,34 @@ function explodeDroplet(x,y,colors){
       if(localX<=earHalfWidth){
         const ridge=1-Math.abs(localX)/earHalfWidth;
         py-=ridge*earHeight;
-        px=side*(earCenterX+localX*1.05);
+        px=side*(earCenterX+localX*0.94);
       }
     }
 
-    const jitter=0.22;
-    const spawnX=x+px*0.84+(rng()-0.5)*jitter;
-    const spawnY=y+py*0.84+(rng()-0.5)*jitter;
-    const vx=px*(0.2+rng()*0.22)+(rng()-0.5)*0.12;
-    const vy=py*(0.2+rng()*0.22)+(rng()-0.5)*0.12;
-    addParticle(spawnX,spawnY,vx,vy,pick(colors),0.64+rng()*0.52,0.986+rng()*0.006,0.021+rng()*0.004,0.007+rng()*0.003);
+    const jitter=0.2;
+    const spawnX=x+px*0.87+(rng()-0.5)*jitter;
+    const spawnY=y+py*0.87+(rng()-0.5)*jitter;
+    const vx=px*(0.195+rng()*0.2)+(rng()-0.5)*0.1;
+    const vy=py*(0.195+rng()*0.2)+(rng()-0.5)*0.1;
+    addParticle(spawnX,spawnY,vx,vy,pick(colors),0.62+rng()*0.5,0.986+rng()*0.005,0.021+rng()*0.0038,0.007+rng()*0.0028);
   }
 
-  const innerCount=56;
+  const innerCount=42;
   for(let i=0;i<innerCount;i++){
     const a=rng()*Math.PI*2;
-    const r=Math.sqrt(rng())*0.98;
-    const ix=Math.cos(a)*r*1.42;
-    const iy=Math.sin(a)*r*1.12;
+    const r=Math.sqrt(rng())*0.86;
+    const ix=Math.cos(a)*r*1.26;
+    const iy=Math.sin(a)*r*1.02;
     addParticle(
-      x+ix*0.34+(rng()-0.5)*0.18,
-      y+iy*0.34+(rng()-0.5)*0.18,
-      ix*(0.16+rng()*0.14),
-      iy*(0.16+rng()*0.14),
+      x+ix*0.3+(rng()-0.5)*0.15,
+      y+iy*0.3+(rng()-0.5)*0.15,
+      ix*(0.13+rng()*0.12),
+      iy*(0.13+rng()*0.12),
       pick(colors),
-      0.4+rng()*0.36,
-      0.977+rng()*0.011,
-      0.018+rng()*0.004,
-      0.01+rng()*0.005
+      0.36+rng()*0.3,
+      0.978+rng()*0.01,
+      0.017+rng()*0.003,
+      0.01+rng()*0.004
     );
   }
 }
