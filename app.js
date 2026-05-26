@@ -233,10 +233,10 @@ function explodeSparkle(x,y,colors){
   }
 }
 function explodeDroplet(x,y,colors){
-  const outerRadius=2.82;
-  const innerRadius=1.1;
-  const starScale=1.16;
-  const outlineCount=130;
+  const outerRadius=3.02;
+  const innerRadius=1.2;
+  const starScale=1.22;
+  const outlineCount=132;
   const step=Math.PI/5;
   const angleOffset=-Math.PI/2;
 
@@ -247,41 +247,41 @@ function explodeDroplet(x,y,colors){
     const local=(wrapped-sector*step)/step;
     const r1=sector%2===0?outerRadius:innerRadius;
     const r2=(sector+1)%2===0?outerRadius:innerRadius;
-    const radius=(r1+(r2-r1)*local)*(0.96+rng()*0.09);
+    const radius=(r1+(r2-r1)*local)*(0.97+rng()*0.08);
     const px=Math.cos(t)*radius*starScale;
     const py=Math.sin(t)*radius*starScale;
     addParticle(
-      x+px*0.86+(rng()-0.5)*0.12,
-      y+py*0.86+(rng()-0.5)*0.12,
-      px*(0.19+rng()*0.16)+(rng()-0.5)*0.07,
-      py*(0.19+rng()*0.16)+(rng()-0.5)*0.07,
+      x+px*0.87+(rng()-0.5)*0.11,
+      y+py*0.87+(rng()-0.5)*0.11,
+      px*(0.165+rng()*0.13)+(rng()-0.5)*0.055,
+      py*(0.165+rng()*0.13)+(rng()-0.5)*0.055,
       pick(colors),
-      0.64+rng()*0.46,
-      0.986+rng()*0.005,
-      0.02+rng()*0.0034,
-      0.007+rng()*0.0026
+      0.62+rng()*0.4,
+      0.988+rng()*0.004,
+      0.015+rng()*0.0028,
+      0.006+rng()*0.0022
     );
   }
 
-  const innerCount=34;
+  const innerCount=36;
   for(let i=0;i<innerCount;i++){
     const a=angleOffset+rng()*Math.PI*2;
     const wobble=Math.cos(a*5);
-    const edgeMix=0.32+rng()*0.36;
-    const maxR=(innerRadius+(outerRadius-innerRadius)*Math.max(0,wobble))*0.78;
+    const edgeMix=0.34+rng()*0.34;
+    const maxR=(innerRadius+(outerRadius-innerRadius)*Math.max(0,wobble))*0.8;
     const r=Math.sqrt(rng())*maxR*edgeMix;
     const ix=Math.cos(a)*r*starScale;
     const iy=Math.sin(a)*r*starScale;
     addParticle(
-      x+ix*0.45+(rng()-0.5)*0.16,
-      y+iy*0.45+(rng()-0.5)*0.16,
-      ix*(0.11+rng()*0.11),
-      iy*(0.11+rng()*0.11),
+      x+ix*0.46+(rng()-0.5)*0.14,
+      y+iy*0.46+(rng()-0.5)*0.14,
+      ix*(0.1+rng()*0.09),
+      iy*(0.1+rng()*0.09),
       pick(colors),
-      0.39+rng()*0.25,
-      0.979+rng()*0.01,
-      0.016+rng()*0.003,
-      0.009+rng()*0.0032
+      0.37+rng()*0.22,
+      0.982+rng()*0.008,
+      0.0125+rng()*0.0026,
+      0.007+rng()*0.0024
     );
   }
 }
