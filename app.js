@@ -291,33 +291,7 @@ function explodeDroplet(x,y,colors){
   }
 }
 
-    const jitter=0.2;
-    const spawnX=x+px*0.87+(rng()-0.5)*jitter;
-    const spawnY=y+py*0.87+(rng()-0.5)*jitter;
-    const vx=px*(0.195+rng()*0.2)+(rng()-0.5)*0.1;
-    const vy=py*(0.195+rng()*0.2)+(rng()-0.5)*0.1;
-    addParticle(spawnX,spawnY,vx,vy,pick(colors),0.62+rng()*0.5,0.986+rng()*0.005,0.021+rng()*0.0038,0.007+rng()*0.0028);
-  }
-
-  const innerCount=42;
-  for(let i=0;i<innerCount;i++){
-    const a=rng()*Math.PI*2;
-    const r=Math.sqrt(rng())*0.86;
-    const ix=Math.cos(a)*r*1.26;
-    const iy=Math.sin(a)*r*1.02;
-    addParticle(
-      x+ix*0.3+(rng()-0.5)*0.15,
-      y+iy*0.3+(rng()-0.5)*0.15,
-      ix*(0.13+rng()*0.12),
-      iy*(0.13+rng()*0.12),
-      pick(colors),
-      0.36+rng()*0.3,
-      0.978+rng()*0.01,
-      0.017+rng()*0.003,
-      0.01+rng()*0.004
-    );
-  }
-}
+    
 function explodeHeart(x,y,colors){
   const c=110;
   for(let i=0;i<c;i++){
