@@ -233,87 +233,58 @@ function explodeSparkle(x,y,colors){
   }
 }
 function explodeDroplet(x,y,colors){
-  const outlineCount=110;
-  const dropletScale=1.15;
+  const outerRadius=2.35;
+  const innerRadius=0.96;
+  const starScale=1.08;
+  const outlineCount=130;
+  const step=Math.PI/5;
+  const angleOffset=-Math.PI/2;
+
   for(let i=0;i<outlineCount;i++){
     const t=(i/outlineCount)*Math.PI*2;
-    const ux=Math.cos(t);
-    const uy=Math.sin(t);
-
-    const headScaleX=2.32;
-    const headScaleY=1.84;
-    let px=ux*headScaleX;
-    let py=uy*headScaleY;
-
-    const absPx=Math.abs(px);
-    const topGap=(py<-1.2)&&(absPx<0.95);
-    if(topGap)continue;
-
-    if(py<-0.56&&absPx>1.15&&absPx<2.03){
-      const side=Math.sign(px)||1;
-      const earCenterX=1.64;
-      const earHalfWidth=0.34;
-      const edge=Math.abs(absPx-earCenterX)/earHalfWidth;
-      if(edge<=1){
-        const ridge=1-edge;
-        py-=0.53+ridge*0.2;
-        px=side*(earCenterX+(absPx-earCenterX)*0.82);
-      }
-    }
-
-    px*=dropletScale;
-    py*=dropletScale;
-
-    const jitter=0.2;
-    const spawnX=x+px*0.87+(rng()-0.5)*jitter;
-    const spawnY=y+py*0.87+(rng()-0.5)*jitter;
-    const vx=px*(0.195+rng()*0.2)+(rng()-0.5)*0.1;
-    const vy=py*(0.195+rng()*0.2)+(rng()-0.5)*0.1;
-    addParticle(spawnX,spawnY,vx,vy,pick(colors),(0.62+rng()*0.5)*1.06,0.986+rng()*0.005,0.021+rng()*0.0038,0.007+rng()*0.0028);
-  }
-
-  const earParticleCount=28;
-  for(let i=0;i<earParticleCount;i++){
-    const side=i%2===0?-1:1;
-    const s=rng();
-    const t=rng();
-    const baseX=1.58+side*0.02;
-    const tipX=1.9;
-    const baseY=-0.84;
-    const tipY=-1.5;
-    const edgeBlend=t<0.5?-1:1;
-    const edgeRatio=Math.abs(t-0.5)*2;
-    const ex=(1-s)*baseX+s*tipX+(edgeBlend*edgeRatio)*0.12;
-    const ey=(1-s)*baseY+s*tipY+Math.abs(edgeBlend*edgeRatio)*0.05;
-    const px=side*ex;
-    const py=ey;
-    const jitter=0.16;
-    const spawnX=x+px*0.84*dropletScale+(rng()-0.5)*jitter;
-    const spawnY=y+py*0.84*dropletScale+(rng()-0.5)*jitter;
-    const vx=px*(0.2+rng()*0.17)+(rng()-0.5)*0.1;
-    const vy=py*(0.2+rng()*0.17)+(rng()-0.5)*0.1;
-    addParticle(spawnX,spawnY,vx,vy,pick(colors),(0.58+rng()*0.38)*1.02,0.986+rng()*0.005,0.021+rng()*0.0038,0.007+rng()*0.0028);
-  }
-
-  const innerCount=42;
-  for(let i=0;i<innerCount;i++){
-    const a=rng()*Math.PI*2;
-    const r=Math.sqrt(rng())*0.86;
-    const ix=Math.cos(a)*r*1.31;
-    const iy=Math.sin(a)*r*1.0;
+    const wrapped=((t-angleOffset)%(Math.PI*2)+Math.PI*2)%(Math.PI*2);
+    const sector=Math.floor(wrapped/step);
+    const local=(wrapped-sector*step)/step;
+    const r1=sector%2===0?outerRadius:innerRadius;
+    const r2=(sector+1)%2===0?outerRadius:innerRadius;
+    const radius=(r1+(r2-r1)*local)*(0.96+rng()*0.09);
+    const px=Math.cos(t)*radius*starScale;
+    const py=Math.sin(t)*radius*starScale;
     addParticle(
-      x+ix*0.3*dropletScale+(rng()-0.5)*0.15,
-      y+iy*0.3*dropletScale+(rng()-0.5)*0.15,
-      ix*(0.13+rng()*0.12)*dropletScale,
-      iy*(0.13+rng()*0.12)*dropletScale,
+      x+px*0.86+(rng()-0.5)*0.12,
+      y+py*0.86+(rng()-0.5)*0.12,
+      px*(0.19+rng()*0.16)+(rng()-0.5)*0.07,
+      py*(0.19+rng()*0.16)+(rng()-0.5)*0.07,
       pick(colors),
-      (0.36+rng()*0.3)*1.05,
-      0.978+rng()*0.01,
-      0.017+rng()*0.003,
-      0.01+rng()*0.004
+      0.56+rng()*0.42,
+      0.986+rng()*0.005,
+      0.02+rng()*0.0034,
+      0.007+rng()*0.0026
     );
   }
-}  
+
+  const innerCount=34;
+  for(let i=0;i<innerCount;i++){
+    const a=angleOffset+rng()*Math.PI*2;
+    const wobble=Math.cos(a*5);
+    const edgeMix=0.32+rng()*0.36;
+    const maxR=(innerRadius+(outerRadius-innerRadius)*Math.max(0,wobble))*0.78;
+    const r=Math.sqrt(rng())*maxR*edgeMix;
+    const ix=Math.cos(a)*r*starScale;
+    const iy=Math.sin(a)*r*starScale;
+    addParticle(
+      x+ix*0.45+(rng()-0.5)*0.16,
+      y+iy*0.45+(rng()-0.5)*0.16,
+      ix*(0.11+rng()*0.11),
+      iy*(0.11+rng()*0.11),
+      pick(colors),
+      0.34+rng()*0.22,
+      0.979+rng()*0.01,
+      0.016+rng()*0.003,
+      0.009+rng()*0.0032
+    );
+  }
+}
 function explodeHeart(x,y,colors){
   const c=110;
   for(let i=0;i<c;i++){
