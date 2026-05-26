@@ -233,9 +233,9 @@ function explodeSparkle(x,y,colors){
   }
 }
 function explodeDroplet(x,y,colors){
-  const outerRadius=2.35;
-  const innerRadius=0.96;
-  const starScale=1.08;
+  const outerRadius=2.82;
+  const innerRadius=1.1;
+  const starScale=1.16;
   const outlineCount=130;
   const step=Math.PI/5;
   const angleOffset=-Math.PI/2;
@@ -256,7 +256,7 @@ function explodeDroplet(x,y,colors){
       px*(0.19+rng()*0.16)+(rng()-0.5)*0.07,
       py*(0.19+rng()*0.16)+(rng()-0.5)*0.07,
       pick(colors),
-      0.56+rng()*0.42,
+      0.64+rng()*0.46,
       0.986+rng()*0.005,
       0.02+rng()*0.0034,
       0.007+rng()*0.0026
@@ -278,7 +278,7 @@ function explodeDroplet(x,y,colors){
       ix*(0.11+rng()*0.11),
       iy*(0.11+rng()*0.11),
       pick(colors),
-      0.34+rng()*0.22,
+      0.39+rng()*0.25,
       0.979+rng()*0.01,
       0.016+rng()*0.003,
       0.009+rng()*0.0032
