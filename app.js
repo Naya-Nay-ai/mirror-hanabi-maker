@@ -174,18 +174,19 @@ function explodeRound(x,y,colors,count){
 }
 function explodeWillow(x,y,colors){
   const count=136;
+  const willowScale=1.1;
   for(let i=0;i<count;i++){
     const spread=(rng()-0.5);
     const branchBias=(rng()-0.5)*0.45;
-    const vx=spread*(0.58+rng()*0.92)+branchBias*0.32;
-    const vy=-(0.72+rng()*1.18)+Math.abs(spread)*(0.28+rng()*0.26);
+    const vx=(spread*(0.58+rng()*0.92)+branchBias*0.32)*willowScale;
+    const vy=(-(0.72+rng()*1.18)+Math.abs(spread)*(0.28+rng()*0.26))*willowScale;
     addParticle(
       x+(rng()-0.5)*1.8,
       y-(rng()*0.9),
       vx,
       vy,
       pick(colors),
-      0.52+rng()*0.52,
+      (0.52+rng()*0.52)*1.09,
       0.986+rng()*0.008,
       0.026+rng()*0.006,
       0.005+rng()*0.003
@@ -233,20 +234,21 @@ function explodeSparkle(x,y,colors){
 }
 function explodeDroplet(x,y,colors){
   const outlineCount=132;
+  const dropletScale=1.15;
   for(let i=0;i<outlineCount;i++){
     const t=(i/outlineCount)*Math.PI*2;
     const ux=Math.cos(t);
     const uy=Math.sin(t);
 
-    const headScaleX=2.18;
-    const headScaleY=1.86;
+    const headScaleX=2.32;
+    const headScaleY=1.84;
     let px=ux*headScaleX;
     let py=uy*headScaleY;
 
-    const earZoneY=-0.74;
-    const earCenterX=1.55;
-    const earHalfWidth=0.44;
-    const earHeight=0.72;
+    const earZoneY=-0.72;
+    const earCenterX=1.6;
+    const earHalfWidth=0.43;
+    const earHeight=0.66;
 
     if(py<earZoneY){
       const side=Math.sign(px)||1;
@@ -257,6 +259,37 @@ function explodeDroplet(x,y,colors){
         px=side*(earCenterX+localX*0.94);
       }
     }
+
+    px*=dropletScale;
+    py*=dropletScale;
+
+    const jitter=0.2;
+    const spawnX=x+px*0.87+(rng()-0.5)*jitter;
+    const spawnY=y+py*0.87+(rng()-0.5)*jitter;
+    const vx=px*(0.195+rng()*0.2)+(rng()-0.5)*0.1;
+    const vy=py*(0.195+rng()*0.2)+(rng()-0.5)*0.1;
+    addParticle(spawnX,spawnY,vx,vy,pick(colors),(0.62+rng()*0.5)*1.06,0.986+rng()*0.005,0.021+rng()*0.0038,0.007+rng()*0.0028);
+  }
+
+  const innerCount=42;
+  for(let i=0;i<innerCount;i++){
+    const a=rng()*Math.PI*2;
+    const r=Math.sqrt(rng())*0.86;
+    const ix=Math.cos(a)*r*1.31;
+    const iy=Math.sin(a)*r*1.0;
+    addParticle(
+      x+ix*0.3*dropletScale+(rng()-0.5)*0.15,
+      y+iy*0.3*dropletScale+(rng()-0.5)*0.15,
+      ix*(0.13+rng()*0.12)*dropletScale,
+      iy*(0.13+rng()*0.12)*dropletScale,
+      pick(colors),
+      (0.36+rng()*0.3)*1.05,
+      0.978+rng()*0.01,
+      0.017+rng()*0.003,
+      0.01+rng()*0.004
+    );
+  }
+}
 
     const jitter=0.2;
     const spawnX=x+px*0.87+(rng()-0.5)*jitter;
