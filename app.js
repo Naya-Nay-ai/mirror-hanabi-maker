@@ -233,7 +233,7 @@ function explodeSparkle(x,y,colors){
   }
 }
 function explodeDroplet(x,y,colors){
-  const outlineCount=132;
+  const outlineCount=110;
   const dropletScale=1.15;
   for(let i=0;i<outlineCount;i++){
     const t=(i/outlineCount)*Math.PI*2;
@@ -245,18 +245,19 @@ function explodeDroplet(x,y,colors){
     let px=ux*headScaleX;
     let py=uy*headScaleY;
 
-    const earZoneY=-0.72;
-    const earCenterX=1.6;
-    const earHalfWidth=0.43;
-    const earHeight=0.66;
+    const absPx=Math.abs(px);
+    const topGap=(py<-1.2)&&(absPx<0.95);
+    if(topGap)continue;
 
-    if(py<earZoneY){
+    if(py<-0.56&&absPx>1.15&&absPx<2.03){
       const side=Math.sign(px)||1;
-      const localX=Math.abs(px)-earCenterX;
-      if(localX<=earHalfWidth){
-        const ridge=1-Math.abs(localX)/earHalfWidth;
-        py-=ridge*earHeight;
-        px=side*(earCenterX+localX*0.94);
+      const earCenterX=1.64;
+      const earHalfWidth=0.34;
+      const edge=Math.abs(absPx-earCenterX)/earHalfWidth;
+      if(edge<=1){
+        const ridge=1-edge;
+        py-=0.53+ridge*0.2;
+        px=side*(earCenterX+(absPx-earCenterX)*0.82);
       }
     }
 
@@ -269,6 +270,29 @@ function explodeDroplet(x,y,colors){
     const vx=px*(0.195+rng()*0.2)+(rng()-0.5)*0.1;
     const vy=py*(0.195+rng()*0.2)+(rng()-0.5)*0.1;
     addParticle(spawnX,spawnY,vx,vy,pick(colors),(0.62+rng()*0.5)*1.06,0.986+rng()*0.005,0.021+rng()*0.0038,0.007+rng()*0.0028);
+  }
+
+  const earParticleCount=28;
+  for(let i=0;i<earParticleCount;i++){
+    const side=i%2===0?-1:1;
+    const s=rng();
+    const t=rng();
+    const baseX=1.58+side*0.02;
+    const tipX=1.9;
+    const baseY=-0.84;
+    const tipY=-1.5;
+    const edgeBlend=t<0.5?-1:1;
+    const edgeRatio=Math.abs(t-0.5)*2;
+    const ex=(1-s)*baseX+s*tipX+(edgeBlend*edgeRatio)*0.12;
+    const ey=(1-s)*baseY+s*tipY+Math.abs(edgeBlend*edgeRatio)*0.05;
+    const px=side*ex;
+    const py=ey;
+    const jitter=0.16;
+    const spawnX=x+px*0.84*dropletScale+(rng()-0.5)*jitter;
+    const spawnY=y+py*0.84*dropletScale+(rng()-0.5)*jitter;
+    const vx=px*(0.2+rng()*0.17)+(rng()-0.5)*0.1;
+    const vy=py*(0.2+rng()*0.17)+(rng()-0.5)*0.1;
+    addParticle(spawnX,spawnY,vx,vy,pick(colors),(0.58+rng()*0.38)*1.02,0.986+rng()*0.005,0.021+rng()*0.0038,0.007+rng()*0.0028);
   }
 
   const innerCount=42;
@@ -289,9 +313,7 @@ function explodeDroplet(x,y,colors){
       0.01+rng()*0.004
     );
   }
-}
-
-    
+}  
 function explodeHeart(x,y,colors){
   const c=110;
   for(let i=0;i<c;i++){
