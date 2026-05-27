@@ -269,21 +269,22 @@ function explodeDroplet(x,y,colors){
     }
   }
 
-  const innerCount=36;
+  const innerCount=28;
   for(let i=0;i<innerCount;i++){
     const a=angleOffset+rng()*Math.PI*2;
     const wedge=Math.cos((a-angleOffset)*5);
     const maxR=(innerRadius+(outerRadius-innerRadius)*Math.max(0,wedge))*0.78;
-    const r=Math.sqrt(rng())*maxR*(0.35+rng()*0.32);
+    const minR=maxR*0.34;
+    const r=minR+Math.sqrt(rng())*(maxR-minR)*(0.72+rng()*0.2);
     const ix=Math.cos(a)*r*starScale;
     const iy=Math.sin(a)*r*starScale;
     addParticle(
-      x+ix*0.46+(rng()-0.5)*0.14,
-      y+iy*0.46+(rng()-0.5)*0.14,
-      ix*(0.1+rng()*0.09),
-      iy*(0.1+rng()*0.09),
+      x+ix*0.52+(rng()-0.5)*0.12,
+      y+iy*0.52+(rng()-0.5)*0.12,
+      ix*(0.094+rng()*0.084),
+      iy*(0.094+rng()*0.084),
       pick(colors),
-      0.34+rng()*0.2,
+      0.27+rng()*0.15,
       0.982+rng()*0.008,
       0.0125+rng()*0.0026,
       0.007+rng()*0.0024
