@@ -233,43 +233,48 @@ function explodeSparkle(x,y,colors){
   }
 }
 function explodeDroplet(x,y,colors){
-  const outerRadius=3.02;
-  const innerRadius=1.2;
+  const outerRadius=3.04;
+  const innerRadius=1.18;
   const starScale=1.22;
-  const outlineCount=132;
-  const step=Math.PI/5;
-  const angleOffset=-Math.PI/2;
+  const baseAngle=-Math.PI/2;
+  const tilt=(rng()-0.5)*0.36;
+  const angleOffset=baseAngle+tilt;
 
-  for(let i=0;i<outlineCount;i++){
-    const t=(i/outlineCount)*Math.PI*2;
-    const wrapped=((t-angleOffset)%(Math.PI*2)+Math.PI*2)%(Math.PI*2);
-    const sector=Math.floor(wrapped/step);
-    const local=(wrapped-sector*step)/step;
-    const r1=sector%2===0?outerRadius:innerRadius;
-    const r2=(sector+1)%2===0?outerRadius:innerRadius;
-    const radius=(r1+(r2-r1)*local)*(0.97+rng()*0.08);
-    const px=Math.cos(t)*radius*starScale;
-    const py=Math.sin(t)*radius*starScale;
-    addParticle(
-      x+px*0.87+(rng()-0.5)*0.11,
-      y+py*0.87+(rng()-0.5)*0.11,
-      px*(0.165+rng()*0.13)+(rng()-0.5)*0.055,
-      py*(0.165+rng()*0.13)+(rng()-0.5)*0.055,
-      pick(colors),
-      0.62+rng()*0.4,
-      0.988+rng()*0.004,
-      0.015+rng()*0.0028,
-      0.006+rng()*0.0022
-    );
+  const starPoints=[];
+  for(let i=0;i<10;i++){
+    const angle=angleOffset+(Math.PI*i)/5;
+    const radius=(i%2===0?outerRadius:innerRadius)*(0.985+rng()*0.03);
+    starPoints.push({x:Math.cos(angle)*radius*starScale,y:Math.sin(angle)*radius*starScale});
+  }
+
+  const edgeCount=14;
+  for(let i=0;i<starPoints.length;i++){
+    const p1=starPoints[i];
+    const p2=starPoints[(i+1)%starPoints.length];
+    for(let j=0;j<edgeCount;j++){
+      const t=j/edgeCount;
+      const px=p1.x+(p2.x-p1.x)*t;
+      const py=p1.y+(p2.y-p1.y)*t;
+      addParticle(
+        x+px*0.87+(rng()-0.5)*0.1,
+        y+py*0.87+(rng()-0.5)*0.1,
+        px*(0.168+rng()*0.12)+(rng()-0.5)*0.05,
+        py*(0.168+rng()*0.12)+(rng()-0.5)*0.05,
+        pick(colors),
+        0.56+rng()*0.32,
+        0.988+rng()*0.004,
+        0.015+rng()*0.0028,
+        0.006+rng()*0.0022
+      );
+    }
   }
 
   const innerCount=36;
   for(let i=0;i<innerCount;i++){
     const a=angleOffset+rng()*Math.PI*2;
-    const wobble=Math.cos(a*5);
-    const edgeMix=0.34+rng()*0.34;
-    const maxR=(innerRadius+(outerRadius-innerRadius)*Math.max(0,wobble))*0.8;
-    const r=Math.sqrt(rng())*maxR*edgeMix;
+    const wedge=Math.cos((a-angleOffset)*5);
+    const maxR=(innerRadius+(outerRadius-innerRadius)*Math.max(0,wedge))*0.78;
+    const r=Math.sqrt(rng())*maxR*(0.35+rng()*0.32);
     const ix=Math.cos(a)*r*starScale;
     const iy=Math.sin(a)*r*starScale;
     addParticle(
@@ -278,7 +283,7 @@ function explodeDroplet(x,y,colors){
       ix*(0.1+rng()*0.09),
       iy*(0.1+rng()*0.09),
       pick(colors),
-      0.37+rng()*0.22,
+      0.34+rng()*0.2,
       0.982+rng()*0.008,
       0.0125+rng()*0.0026,
       0.007+rng()*0.0024
