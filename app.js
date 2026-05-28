@@ -340,8 +340,8 @@ function createPartnerLetter() {
 
 今夜は、${activeSettings.yourPronoun}たちのためだけの花火だよ。
 ${mood}
-${c1}と${c2}の光が広がって、
-最後に${shape}が${shapeEnding}。
+${c1}と${c2}の${shape}が広がって、
+${shapeEnding}。
 
 ねえ、${activeSettings.partnerName}。
 「${activeSettings.message}」
