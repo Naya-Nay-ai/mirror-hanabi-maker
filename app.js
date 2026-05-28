@@ -18,8 +18,8 @@ const toast = document.getElementById('toast');
 const COLOR_MAP = { sakura:{label:'さくらピンク',hex:'#ff92c8'}, navy:{label:'夜空ネイビー',hex:'#3552ff'}, gold:{label:'星の金',hex:'#ffd666'}, white:{label:'月あかりホワイト',hex:'#fffaf0'}, blue:{label:'海いろブルー',hex:'#67ccff'}, mint:{label:'ミントグリーン',hex:'#90f3d8'}, orange:{label:'夕やけオレンジ',hex:'#ff9f52'}, violet:{label:'すみれパープル',hex:'#b991ff'} };
 const TYPE_MAP = { round:{label:'まるい花火',phrase:'まるい花火'}, willow:{label:'しだれ花火',phrase:'しだれ花火'}, sparkle:{label:'きらめき花火',phrase:'きらめき花火'}, heart:{label:'ハート花火',phrase:'ハートみたいな花火'}, droplet:{label:'ステラ花火',phrase:'お星さまの花火'} };
 const MOOD_MAP = {
-  festival:{label:'夏祭り（川沿い）',text:'川沿いの夜。屋台の灯りと花火が、揺れる水面にきらめく。',sky:'linear-gradient(180deg,#1a1d3b 0%,#15203d 45%,#0d1632 100%)',lights:'radial-gradient(ellipse at 18% 82%, rgba(246,183,90,.35) 0 12%, transparent 40%),radial-gradient(ellipse at 60% 86%, rgba(247,133,96,.28) 0 10%, transparent 42%),linear-gradient(0deg, rgba(28,49,84,.45) 0 13%, transparent 26%)',mid:'polygon(0 72%, 14% 66%, 25% 68%, 39% 62%, 52% 66%, 67% 58%, 81% 63%, 100% 56%, 100% 100%, 0 100%)',front:'polygon(0 84%, 15% 80%, 33% 83%, 42% 78%, 66% 81%, 82% 76%, 100% 80%, 100% 100%, 0 100%)'},
-  seaside:{label:'海辺',text:'海辺の夜。穏やかな波に、きらきらと花火の光が映る。',sky:'linear-gradient(180deg,#101d3b 0%,#0d2d4f 52%,#11315a 100%)',lights:'linear-gradient(0deg, rgba(111,190,237,.42) 0 16%, transparent 32%),radial-gradient(circle at 70% 90%, rgba(173,222,255,.24) 0 16%, transparent 36%)',mid:'polygon(0 74%, 26% 72%, 50% 74%, 77% 71%, 100% 73%, 100% 100%, 0 100%)',front:'polygon(0 86%, 20% 84%, 40% 87%, 62% 84%, 100% 88%, 100% 100%, 0 100%)'},
+  festival:{label:'夏祭り（川沿い）',text:'川沿いの夜。屋台の灯りと花火が、揺れる水面に揺らめく。',sky:'linear-gradient(180deg,#1a1d3b 0%,#15203d 45%,#0d1632 100%)',lights:'radial-gradient(ellipse at 18% 82%, rgba(246,183,90,.35) 0 12%, transparent 40%),radial-gradient(ellipse at 60% 86%, rgba(247,133,96,.28) 0 10%, transparent 42%),linear-gradient(0deg, rgba(28,49,84,.45) 0 13%, transparent 26%)',mid:'polygon(0 72%, 14% 66%, 25% 68%, 39% 62%, 52% 66%, 67% 58%, 81% 63%, 100% 56%, 100% 100%, 0 100%)',front:'polygon(0 84%, 15% 80%, 33% 83%, 42% 78%, 66% 81%, 82% 76%, 100% 80%, 100% 100%, 0 100%)'},
+  seaside:{label:'海辺',text:'海辺の夜。波間に映る花火の光が、静かにほどけていく。',sky:'linear-gradient(180deg,#101d3b 0%,#0d2d4f 52%,#11315a 100%)',lights:'linear-gradient(0deg, rgba(111,190,237,.42) 0 16%, transparent 32%),radial-gradient(circle at 70% 90%, rgba(173,222,255,.24) 0 16%, transparent 36%)',mid:'polygon(0 74%, 26% 72%, 50% 74%, 77% 71%, 100% 73%, 100% 100%, 0 100%)',front:'polygon(0 86%, 20% 84%, 40% 87%, 62% 84%, 100% 88%, 100% 100%, 0 100%)'},
   harbor:{label:'港',text:'港の夜。宝石みたいな街の灯りに重なるように、大輪の花火が開く。',sky:'linear-gradient(180deg,#121938 0%,#182447 48%,#19253f 100%)',lights:'radial-gradient(circle at 17% 86%, rgba(255,203,108,.24) 0 7%, transparent 24%),radial-gradient(circle at 72% 85%, rgba(123,203,255,.2) 0 8%, transparent 25%),linear-gradient(0deg, rgba(39,64,100,.32) 0 14%, transparent 32%)',mid:'polygon(0 70%, 7% 70%, 7% 62%, 11% 62%, 11% 68%, 17% 68%, 17% 58%, 22% 58%, 22% 69%, 31% 69%, 31% 60%, 36% 60%, 36% 67%, 44% 67%, 44% 57%, 52% 57%, 52% 68%, 60% 68%, 60% 61%, 67% 61%, 67% 69%, 74% 69%, 74% 56%, 80% 56%, 80% 68%, 89% 68%, 89% 60%, 95% 60%, 95% 71%, 100% 71%, 100% 100%, 0 100%)',front:'polygon(0 85%, 100% 85%, 100% 100%, 0 100%)'},
   rooftop:{label:'屋上',text:'屋上の夜。手すり越しの花火が、ビルのシルエットをやさしく照らす。',sky:'linear-gradient(180deg,#141d40 0%,#141d35 50%,#111827 100%)',lights:'radial-gradient(circle at 25% 74%, rgba(255,220,130,.2) 0 6%, transparent 22%),radial-gradient(circle at 76% 71%, rgba(154,204,255,.18) 0 6%, transparent 22%)',mid:'polygon(0 72%, 12% 72%, 12% 64%, 18% 64%, 18% 72%, 28% 72%, 28% 61%, 34% 61%, 34% 72%, 48% 72%, 48% 66%, 55% 66%, 55% 72%, 67% 72%, 67% 60%, 75% 60%, 75% 72%, 88% 72%, 88% 63%, 95% 63%, 95% 72%, 100% 72%, 100% 100%, 0 100%)',front:'polygon(0 82%, 100% 82%, 100% 84%, 0 84%, 0 100%, 100% 100%, 100% 88%, 0 88%)'},
   starry:{label:'星空の丘',text:'星空の夜。満天の星に彩りを添えるように、花束みたいな花火が咲く。',sky:'linear-gradient(180deg,#0c1431 0%,#111d3c 48%,#121b2e 100%)',lights:'radial-gradient(circle at 24% 80%, rgba(198,221,255,.08) 0 10%, transparent 34%)',mid:'polygon(0 74%, 20% 67%, 38% 72%, 56% 64%, 72% 70%, 85% 62%, 100% 69%, 100% 100%, 0 100%)',front:'polygon(0 86%, 18% 82%, 42% 87%, 62% 81%, 80% 85%, 100% 80%, 100% 100%, 0 100%)'}
@@ -317,8 +317,38 @@ function pick(list){return list[Math.floor(rng()*list.length)]}
 function hexToRgba(hex,a){const v=parseInt(hex.replace('#',''),16);return`rgba(${(v>>16)&255}, ${(v>>8)&255}, ${v&255}, ${Math.max(0,Math.min(a,1))})`}
 function createTwinkleStars(){const layer=document.querySelector('.twinkle-layer');if(!layer)return;const stars=['✦','✧','∙'];const count=window.innerWidth<760?28:48;layer.innerHTML='';for(let i=0;i<count;i++){const star=document.createElement('span');star.className='twinkle-star';star.textContent=stars[Math.floor(Math.random()*stars.length)];star.style.left=`${Math.random()*100}%`;star.style.top=`${Math.random()*100}%`;star.style.setProperty('--star-size',`${8+Math.random()*10}px`);star.style.setProperty('--star-duration',`${2.8+Math.random()*4}s`);star.style.setProperty('--star-delay',`${Math.random()*5}s`);star.style.setProperty('--star-rotate',`${Math.random()*40-20}deg`);layer.appendChild(star)}}
 
-function createPartnerLetter(){const mood=MOOD_MAP[activeSettings.mood]?.text||'夜空に花火が咲く。';const c1=COLOR_MAP[activeSettings.color1]?.label||'光';const c2=COLOR_MAP[activeSettings.color2]?.label||'光';const shape=TYPE_MAP[activeSettings.fireworkType]?.phrase||'花火';return `${activeSettings.partnerName}、隣に座って。\n今から一緒に花火を見よう？\n\n今夜は、${activeSettings.yourPronoun}たちのためだけの花火だよ。\n${mood}\n${c1}と${c2}の光が広がって、\n最後に${shape}がきらきら残る。\n\nねえ、${activeSettings.partnerName}。\n「${activeSettings.message}」\n\n${activeSettings.partnerName}へ\n${activeSettings.yourName}より`}
-function createShareUrl(){const url=new URL(window.location.href);url.search='';const params=new URLSearchParams();Object.entries(activeSettings).forEach(([k,v])=>v&&params.set(k,v));url.search=params.toString();return url.toString()}
+function createPartnerLetter() {
+  const mood = MOOD_MAP[activeSettings.mood]?.text || '夜空に花火が咲く。';
+  const c1 = COLOR_MAP[activeSettings.color1]?.label || '光';
+  const c2 = COLOR_MAP[activeSettings.color2]?.label || '光';
+  const shape = TYPE_MAP[activeSettings.fireworkType]?.phrase || '花火';
+
+  const shapeEndingMap = {
+    "まるい花火": "ふわりと開いて、光がやさしくほどけていく",
+    "しだれ花火": "静かに開いて、光がしだれるように流れていく",
+    "きらめき花火": "弾けるように開いて、細かな光がきらめきながら散っていく",
+    "ハートみたいな花火": "ふわりと形を結んで、やさしいきらめきがほどけていく",
+    "お星さまの花火": "星のかたちにひらいて、きらめきがゆっくり散っていく"
+};
+
+  const shapeEnding =
+    shapeEndingMap[shape] ||
+    "ふわりと開いて、光の余韻がやさしくほどけていく";
+
+  return `${activeSettings.partnerName}、隣に座って。
+今から一緒に花火を見よう？
+
+今夜は、${activeSettings.yourPronoun}たちのためだけの花火だよ。
+${mood}
+${c1}と${c2}の光が広がって、
+最後に${shape}が${shapeEnding}。
+
+ねえ、${activeSettings.partnerName}。
+「${activeSettings.message}」
+
+${activeSettings.partnerName}へ
+${activeSettings.yourName}より`;
+}function createShareUrl(){const url=new URL(window.location.href);url.search='';const params=new URLSearchParams();Object.entries(activeSettings).forEach(([k,v])=>v&&params.set(k,v));url.search=params.toString();return url.toString()}
 function copyText(text,message){navigator.clipboard.writeText(text).then(()=>showToast(message),()=>showToast('コピーできませんでした。'))}
 function showToast(message){toast.textContent=message;toast.classList.add('show');clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>toast.classList.remove('show'),2200)}
 function hashString(str){let h=2166136261;for(let i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
