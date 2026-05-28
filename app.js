@@ -324,11 +324,11 @@ function createPartnerLetter() {
   const shape = TYPE_MAP[activeSettings.fireworkType]?.phrase || '花火';
 
   const shapeEndingMap = {
-    "まるい花火": "ふわりと開いて、光がやさしくほどけていく",
-    "しだれ花火": "静かに開いて、光がしだれるように流れていく",
+    "まるい花火": "大きくふわりと開いて、やさしくほどけていく",
+    "しだれ花火": "優しく静かに開いて、しだれるように流れていく",
     "きらめき花火": "弾けるように開いて、細かな光がきらめきながら散っていく",
-    "ハートみたいな花火": "ふわりと形を結んで、やさしいきらめきがほどけていく",
-    "お星さまの花火": "星のかたちにひらいて、きらめきがゆっくり散っていく"
+    "ハートみたいな花火": "大きなハートが夜空に浮かんで、やさしくほどけていく",
+    "お星さまの花火": "夜空に瞬いて、星のきらめきがゆっくりと散っていく"
 };
 
   const shapeEnding =
@@ -340,7 +340,7 @@ function createPartnerLetter() {
 
 今夜は、${activeSettings.yourPronoun}たちのためだけの花火だよ。
 ${mood}
-${c1}と${c2}の${shape}が広がって、
+澄んだ夜空に${c1}と${c2}の${shape}。
 ${shapeEnding}。
 
 ねえ、${activeSettings.partnerName}。
