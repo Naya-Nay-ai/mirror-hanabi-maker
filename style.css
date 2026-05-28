@@ -23,7 +23,32 @@ select option{color:#101820} input::placeholder{color:rgba(255,255,255,.5)}
 .primary-button,.ghost-button{position:relative;overflow:hidden;isolation:isolate}
 .primary-button::after,.ghost-button::after{content:"";position:absolute;top:-140%;left:-55%;width:38%;height:280%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.55),transparent);transform:translateX(-180%) rotate(18deg);transition:transform .6s ease;pointer-events:none}
 .primary-button:hover::after,.ghost-button:hover::after{transform:translateX(420%) rotate(18deg)}
-.primary-button{color:#22140f;background:linear-gradient(135deg,#ffd56e,#ffaf7f 52%,#b5deff)} .ghost-button{color:var(--text);background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2)} .tiny{padding:10px 14px;font-size:.88rem}
+
+button:focus{
+  outline:none;
+}
+
+button:focus-visible{
+  outline:2px solid rgba(255,217,119,.75);
+  outline-offset:3px;
+}
+
+.primary-button{
+  color:#22140f;
+  background:linear-gradient(135deg,#ffd56e,#ffaf7f 58%,#ff9f7a);
+}
+
+.ghost-button{
+  color:var(--text);
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.2);
+}
+
+.tiny{
+  padding:10px 14px;
+  font-size:.88rem;
+}
+
 .result-area{display:grid;gap:16px}
 .hanabi-stage{position:relative;border-radius:26px;overflow:hidden;min-height:min(92vh,900px);border:1px solid rgba(255,255,255,.18);background:#050b18;box-shadow:0 30px 70px rgba(0,0,0,.5)}
 .hanabi-stage::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background-image:var(--scene-image);background-size:cover;background-position:center;background-repeat:no-repeat;opacity:.74;filter:saturate(1.08) contrast(1.04) brightness(.9)}
