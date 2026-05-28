@@ -35,7 +35,15 @@ button:focus-visible{
 
 .primary-button{
   color:#22140f;
-  background:linear-gradient(135deg,#ffd56e,#ffaf7f 58%,#ff9f7a);
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255,255,255,.45) 0 10%, transparent 24%),
+    linear-gradient(135deg,
+      #ffe28a 0%,
+      #ffd56e 24%,
+      #ffaf7f 48%,
+      #ff7fa8 72%,
+      #b991ff 100%
+    );
 }
 
 .ghost-button{
