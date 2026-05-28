@@ -16,7 +16,7 @@ const shareUrl = document.getElementById('shareUrl');
 const toast = document.getElementById('toast');
 
 const COLOR_MAP = { sakura:{label:'さくらピンク',hex:'#ff92c8'}, navy:{label:'夜空ネイビー',hex:'#3552ff'}, gold:{label:'星の金',hex:'#ffd666'}, white:{label:'月あかりホワイト',hex:'#fffaf0'}, blue:{label:'海いろブルー',hex:'#67ccff'}, mint:{label:'ミントグリーン',hex:'#90f3d8'}, orange:{label:'夕やけオレンジ',hex:'#ff9f52'}, violet:{label:'すみれパープル',hex:'#b991ff'} };
-const TYPE_MAP = { round:{label:'まるい花火',phrase:'まるい花火'}, willow:{label:'しだれ花火',phrase:'しだれ花火'}, sparkle:{label:'きらめき花火',phrase:'きらめき花火'}, heart:{label:'ハート花火',phrase:'ハートみたいな花火'}, droplet:{label:'ステラ花火',phrase:'お星さまの花火'} };
+const TYPE_MAP = { round:{label:'まるい花火',phrase:'まるい花火'}, willow:{label:'しだれ花火',phrase:'しだれ花火'}, sparkle:{label:'きらめき花火',phrase:'きらめき花火'}, heart:{label:'ハート花火',phrase:'ハートのかたちの花火'}, droplet:{label:'ステラ花火',phrase:'お星さまのかたちの花火'} };
 const MOOD_MAP = {
   festival:{label:'夏祭り（川沿い）',text:'川沿いの夜。屋台の灯りと花火が、揺れる水面に揺らめく。',sky:'linear-gradient(180deg,#1a1d3b 0%,#15203d 45%,#0d1632 100%)',lights:'radial-gradient(ellipse at 18% 82%, rgba(246,183,90,.35) 0 12%, transparent 40%),radial-gradient(ellipse at 60% 86%, rgba(247,133,96,.28) 0 10%, transparent 42%),linear-gradient(0deg, rgba(28,49,84,.45) 0 13%, transparent 26%)',mid:'polygon(0 72%, 14% 66%, 25% 68%, 39% 62%, 52% 66%, 67% 58%, 81% 63%, 100% 56%, 100% 100%, 0 100%)',front:'polygon(0 84%, 15% 80%, 33% 83%, 42% 78%, 66% 81%, 82% 76%, 100% 80%, 100% 100%, 0 100%)'},
   seaside:{label:'海辺',text:'海辺の夜。波間に映る花火の光が、静かにほどけていく。',sky:'linear-gradient(180deg,#101d3b 0%,#0d2d4f 52%,#11315a 100%)',lights:'linear-gradient(0deg, rgba(111,190,237,.42) 0 16%, transparent 32%),radial-gradient(circle at 70% 90%, rgba(173,222,255,.24) 0 16%, transparent 36%)',mid:'polygon(0 74%, 26% 72%, 50% 74%, 77% 71%, 100% 73%, 100% 100%, 0 100%)',front:'polygon(0 86%, 20% 84%, 40% 87%, 62% 84%, 100% 88%, 100% 100%, 0 100%)'},
@@ -324,11 +324,11 @@ function createPartnerLetter() {
   const shape = TYPE_MAP[activeSettings.fireworkType]?.phrase || '花火';
 
   const shapeEndingMap = {
-    "まるい花火": "大きくふわりと開いて、やさしくほどけていく",
-    "しだれ花火": "優しく静かに開いて、しだれるように流れていく",
+    "まるい花火": "大きくぱっと開いて、すーっとやさしくほどけていく",
+    "しだれ花火": "優しく静かに開いて、柔らかに枝垂れ流れていく",
     "きらめき花火": "弾けるように開いて、細かな光がきらめきながら散っていく",
-    "ハートみたいな花火": "大きなハートが夜空に浮かんで、やさしくほどけていく",
-    "お星さまの花火": "夜空に瞬いて、星のきらめきがゆっくりと散っていく"
+    "ハートのかたちの花火": "大きなハートが夜空に浮かんで、溶けるみたいにほどけていく",
+    "お星さまのかたちの花火": "夜空に瞬いて、星のきらめきがゆっくりと散っていく"
 };
 
   const shapeEnding =
