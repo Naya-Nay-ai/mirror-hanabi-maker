@@ -334,6 +334,7 @@ function createPartnerLetter() {
   const c1 = COLOR_MAP[activeSettings.color1]?.label || '光';
   const c2 = COLOR_MAP[activeSettings.color2]?.label || '光';
   const shape = TYPE_MAP[activeSettings.fireworkType]?.phrase || '花火';
+  const colorPhrase = c1 === c2 ? `${c1}の光` : `${c1}と${c2}の光`;
 
   const shapeEndingMap = {
     "まるい花火": "大きくぱっと開いて、すーっとやさしくほどけていく",
@@ -352,7 +353,7 @@ function createPartnerLetter() {
 
 今夜は、${activeSettings.yourPronoun}たちのためだけの花火だよ。
 ${mood}
-見上げた先に咲くのは、${c1}と${c2}の光が${shape}。
+見上げた先に、${colorPhrase}で、${shape}が咲く。
 ${shapeEnding}。
 
 ねえ、${activeSettings.partnerName}。
