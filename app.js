@@ -15,7 +15,7 @@ const partnerLetter = document.getElementById('partnerLetter');
 const shareUrl = document.getElementById('shareUrl');
 const toast = document.getElementById('toast');
 
-const COLOR_MAP = { sakura:{label:'さくらピンク',hex:'#ff92c8'}, navy:{label:'夜空ネイビー',hex:'#3552ff'}, gold:{label:'星の金',hex:'#ffd666'}, white:{label:'月あかりホワイト',hex:'#fffaf0'}, blue:{label:'海いろブルー',hex:'#67ccff'}, mint:{label:'ミントグリーン',hex:'#90f3d8'}, orange:{label:'夕やけオレンジ',hex:'#ff9f52'}, violet:{label:'すみれパープル',hex:'#b991ff'} };
+const COLOR_MAP = { sakura:{label:'さくらピンク',hex:'#ff8fc8'}, navy:{label:'夜空ブルー',hex:'#4d64ff'}, gold:{label:'きらぼしゴールド',hex:'#ffd76a'}, white:{label:'月明りアイボリー',hex:'#fff0c8'}, mint:{label:'薄荷グリーン',hex:'#8df0c8'}, orange:{label:'夕焼けオレンジ',hex:'#ff9a4d'}, violet:{label:'すみれパープル',hex:'#b989ff'}, red:{label:'いちごレッド',hex:'#ff5572'} };
 const TYPE_MAP = { round:{label:'まるい花火',phrase:'まるい花火'}, willow:{label:'しだれ花火',phrase:'しだれ花火'}, sparkle:{label:'きらめき花火',phrase:'きらめき花火'}, heart:{label:'ハート花火',phrase:'ハートのかたちの花火'}, droplet:{label:'ステラ花火',phrase:'お星さまのかたちの花火'} };
 const MOOD_MAP = {
   festival:{label:'夏祭り（川沿い）',text:'川沿いの夜。屋台の灯りと花火が、揺れる水面に揺らめく。',sky:'linear-gradient(180deg,#1a1d3b 0%,#15203d 45%,#0d1632 100%)',lights:'radial-gradient(ellipse at 18% 82%, rgba(246,183,90,.35) 0 12%, transparent 40%),radial-gradient(ellipse at 60% 86%, rgba(247,133,96,.28) 0 10%, transparent 42%),linear-gradient(0deg, rgba(28,49,84,.45) 0 13%, transparent 26%)',mid:'polygon(0 72%, 14% 66%, 25% 68%, 39% 62%, 52% 66%, 67% 58%, 81% 63%, 100% 56%, 100% 100%, 0 100%)',front:'polygon(0 84%, 15% 80%, 33% 83%, 42% 78%, 66% 81%, 82% 76%, 100% 80%, 100% 100%, 0 100%)'},
@@ -35,20 +35,33 @@ function getDefaultSettings(){return{yourName:'',yourPronoun:'',partnerName:'',c
 function valueOf(id){return document.getElementById(id).value.trim()}
 function writeForm(settings){Object.entries(settings).forEach(([k,v])=>{const f=document.getElementById(k);if(f&&v!==undefined)f.value=v})}
 function createNewSeed(){return String(Date.now()).slice(-8)}
+function normalizeColorKey(color, fallback='sakura'){
+  if(color==='blue') return 'navy';
+  return COLOR_MAP[color] ? color : fallback;
+}
 
-function readForm(){return{yourName:valueOf('yourName')||'あなた',yourPronoun:valueOf('yourPronoun')||'私',partnerName:valueOf('partnerName')||'きみ',color1:valueOf('color1')||'sakura',color2:valueOf('color2')||'gold',fireworkType:valueOf('fireworkType')||'round',mood:valueOf('mood')||'festival',message:valueOf('message')||'この夜を覚えていてね',seed:activeSettings.seed||createNewSeed()}}
-
+function readForm(){return{yourName:valueOf('yourName')||'あなた',yourPronoun:valueOf('yourPronoun')||'私',partnerName:valueOf('partnerName')||'きみ',color1:normalizeColorKey(valueOf('color1')||'sakura','sakura'),color2:normalizeColorKey(valueOf('color2')||'gold','gold'),fireworkType:valueOf('fireworkType')||'round',mood:valueOf('mood')||'festival',message:valueOf('message')||'この夜を覚えていてね',seed:activeSettings.seed||createNewSeed()}}
 function parseSettingsFromUrl(){
   const params=new URLSearchParams(window.location.search);
   if(!params.toString()) return null;
   const restored={...getDefaultSettings()};
   let hasAny=false;
-  for(const key of RESTORE_KEYS){if(params.has(key)){restored[key]=params.get(key);hasAny=true;}}
+  for(const key of RESTORE_KEYS){
+    if(params.has(key)){
+      const value=params.get(key);
+      restored[key]=(key==='color1'||key==='color2')
+        ? normalizeColorKey(value,key==='color2'?'gold':'sakura')
+        : value;
+      hasAny=true;
+    }
+  }
   return hasAny?restored:null;
 }
 
 function applySettings(settings,shouldScroll=true){
   const merged={...getDefaultSettings(),...settings};
+  merged.color1=normalizeColorKey(merged.color1,'sakura');
+  merged.color2=normalizeColorKey(merged.color2,'gold');
   if(!merged.seed) merged.seed=createNewSeed();
   activeSettings=merged;
   writeForm(activeSettings);
@@ -60,7 +73,6 @@ function applySettings(settings,shouldScroll=true){
   resizeCanvas();
   if(shouldScroll) resultArea.scrollIntoView({behavior:'smooth',block:'start'});
 }
-
 function resizeCanvas(){if(!hanabiStage||resultArea.hidden) return;const rect=hanabiStage.getBoundingClientRect();if(!rect.width||!rect.height) return;const dpr=Math.min(window.devicePixelRatio||1,2);width=rect.width;height=rect.height;canvas.width=Math.floor(width*dpr);canvas.height=Math.floor(height*dpr);ctx.setTransform(dpr,0,0,dpr,0,0)}
 window.addEventListener('resize',resizeCanvas);
 
@@ -356,7 +368,7 @@ function mulberry32(seed){return()=>{let t=seed+=0x6D2B79F5;t=Math.imul(t^(t>>>1
 
 form.addEventListener('submit',(e)=>{e.preventDefault();const s=readForm();s.seed=createNewSeed();applySettings(s)});
 document.querySelectorAll('[data-scroll-to]').forEach((b)=>b.addEventListener('click',()=>document.getElementById(b.dataset.scrollTo)?.scrollIntoView({behavior:'smooth'})));
-document.getElementById('surpriseButton').addEventListener('click',()=>{const presets=[{color1:'orange',color2:'gold',fireworkType:'round',mood:'festival'},{color1:'blue',color2:'white',fireworkType:'droplet',mood:'seaside'},{color1:'navy',color2:'gold',fireworkType:'sparkle',mood:'harbor'},{color1:'violet',color2:'white',fireworkType:'heart',mood:'rooftop'},{color1:'white',color2:'mint',fireworkType:'willow',mood:'starry'}];const s={...readForm(),...pick(presets),seed:createNewSeed()};applySettings(s,true);});
+document.getElementById('surpriseButton').addEventListener('click',()=>{const presets=[{color1:'orange',color2:'gold',fireworkType:'round',mood:'festival'},{color1:'navy',color2:'white',fireworkType:'droplet',mood:'seaside'},{color1:'navy',color2:'gold',fireworkType:'sparkle',mood:'harbor'},{color1:'violet',color2:'white',fireworkType:'heart',mood:'rooftop'},{color1:'white',color2:'mint',fireworkType:'willow',mood:'starry'}];const s={...readForm(),...pick(presets),seed:createNewSeed()};applySettings(s,true);});
 document.getElementById('pickMessageButton').addEventListener('click',()=>{document.getElementById('message').value=pick(MESSAGE_CANDIDATES)});
 document.getElementById('replayButton').addEventListener('click',()=>{activeSettings.seed=createNewSeed();resetShow();showToast('もう一度、花火を打ち上げます。')});
 document.getElementById('letterButton').addEventListener('click',()=>{partnerLetter.value=createPartnerLetter();letterCard.hidden=false;letterCard.scrollIntoView({behavior:'smooth',block:'nearest'})});
