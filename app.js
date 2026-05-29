@@ -15,7 +15,7 @@ const partnerLetter = document.getElementById('partnerLetter');
 const shareUrl = document.getElementById('shareUrl');
 const toast = document.getElementById('toast');
 
-const COLOR_MAP = { sakura:{label:'さくらピンク',hex:'#ff8fc8'}, navy:{label:'夜空ブルー',hex:'#4d64ff'}, gold:{label:'きらぼしゴールド',hex:'#ffd76a'}, white:{label:'月明りアイボリー',hex:'#fff0c8'}, mint:{label:'薄荷グリーン',hex:'#8df0c8'}, orange:{label:'夕焼けオレンジ',hex:'#ff9a4d'}, violet:{label:'すみれパープル',hex:'#b989ff'}, red:{label:'いちごレッド',hex:'#ff5572'} };
+const COLOR_MAP = { sakura:{label:'さくらピンク',hex:'#ff8fc8'}, navy:{label:'夜空ブルー',hex:'#4d64ff'}, gold:{label:'きらぼしゴールド',hex:'#ffd76a'}, white:{label:'月明りアイボリー',hex:'#ffe0a8'}, mint:{label:'薄荷グリーン',hex:'#8df0c8'}, orange:{label:'夕焼けオレンジ',hex:'#ff9a4d'}, violet:{label:'すみれパープル',hex:'#b989ff'}, red:{label:'いちごレッド',hex:'#ff5572'} };
 const TYPE_MAP = { round:{label:'まるい花火',phrase:'まるい花火'}, willow:{label:'しだれ花火',phrase:'しだれ花火'}, sparkle:{label:'きらめき花火',phrase:'きらめき花火'}, heart:{label:'ハート花火',phrase:'ハートのかたちの花火'}, droplet:{label:'ステラ花火',phrase:'お星さまのかたちの花火'} };
 const MOOD_MAP = {
   festival:{label:'夏祭り（川沿い）',text:'川沿いの夜。屋台の灯りと花火が、揺れる水面に揺らめく。',sky:'linear-gradient(180deg,#1a1d3b 0%,#15203d 45%,#0d1632 100%)',lights:'radial-gradient(ellipse at 18% 82%, rgba(246,183,90,.35) 0 12%, transparent 40%),radial-gradient(ellipse at 60% 86%, rgba(247,133,96,.28) 0 10%, transparent 42%),linear-gradient(0deg, rgba(28,49,84,.45) 0 13%, transparent 26%)',mid:'polygon(0 72%, 14% 66%, 25% 68%, 39% 62%, 52% 66%, 67% 58%, 81% 63%, 100% 56%, 100% 100%, 0 100%)',front:'polygon(0 84%, 15% 80%, 33% 83%, 42% 78%, 66% 81%, 82% 76%, 100% 80%, 100% 100%, 0 100%)'},
