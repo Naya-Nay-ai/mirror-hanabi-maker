@@ -72,3 +72,51 @@ button:focus-visible{
 .toast{position:fixed;left:50%;bottom:20px;transform:translate(-50%,120px);opacity:0;z-index:8;transition:.22s ease;background:rgba(255,246,215,.96);color:#1f1a12;padding:10px 16px;border-radius:999px}.toast.show{transform:translate(-50%,0);opacity:1}
 @media (min-width:761px){.hero h1 span{display:inline}.hero h1 span+span{margin-left:.25em}}
 @media (max-width:760px){.app-shell{width:min(100% - 14px,980px);padding-top:12px}.form-grid{grid-template-columns:1fr}.inline-actions{flex-direction:column;align-items:stretch}.button-row{flex-direction:column}button{width:100%}.hanabi-stage{min-height:96svh;border-radius:20px}}
+
+/* ===========================
+   App Footer / Copyright
+=========================== */
+
+.app-footer {
+  margin-top: 32px;
+  padding: 22px 12px 26px;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.76);
+}
+
+.app-footer__brand {
+  margin-bottom: 6px;
+  font-size: 0.88rem;
+  letter-spacing: 0.18em;
+  font-weight: 700;
+  color: rgba(255, 244, 190, 0.94);
+  text-shadow:
+    0 0 10px rgba(255, 212, 102, 0.35),
+    0 0 18px rgba(255, 127, 191, 0.18),
+    0 0 24px rgba(122, 200, 255, 0.16);
+}
+
+.app-footer__copy {
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.68);
+}
+
+@media (max-width: 520px) {
+  .app-footer {
+    margin-top: 24px;
+    padding: 18px 10px 22px;
+  }
+
+  .app-footer__brand {
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+  }
+
+  .app-footer__copy {
+    font-size: 0.66rem;
+    letter-spacing: 0.05em;
+  }
+}
