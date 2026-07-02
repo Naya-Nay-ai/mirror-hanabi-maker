@@ -120,3 +120,8 @@ button:focus-visible{
     letter-spacing: 0.05em;
   }
 }
+.app-footer {
+  display: block;
+  position: relative;
+  z-index: 9999;
+}
